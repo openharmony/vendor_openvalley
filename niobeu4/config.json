@@ -1,0 +1,58 @@
+{
+    "product_name": "niobeu4",
+    "type": "mini",
+    "version": "3.0",
+    "ohos_version": "OpenHarmony 3.1",
+
+    "device_company": "openvalley",
+    "board": "niobeu4",
+    "kernel_type": "liteos_m",
+    "kernel_version": "3.0.0",
+    "subsystems": [
+      {
+        "subsystem": "hiviewdfx",
+        "components": [
+          { "component": "hilog_lite", "features":[] },
+          { "component": "hievent_lite", "features":[] }
+        ]
+      },
+      {
+        "subsystem": "distributedschedule",
+        "components": [
+          { "component": "samgr_lite", "features":[] }
+        ]
+      },
+      {
+        "subsystem": "startup",
+        "components": [
+          { "component": "bootstrap_lite", "features":[] },
+          { "component": "syspara_lite", "features":["enable_ohos_startup_syspara_lite_use_thirdparty_mbedtls = false"] }
+        ]
+      },
+      {
+        "subsystem": "kernel",
+        "components": [
+          { "component": "liteos_m", "features":[]
+          }
+        ]
+      },
+      {
+        "subsystem": "iot_hardware",
+        "components": [
+          { "component": "iot_controller", "features":[] }
+        ]
+      },
+      {
+        "subsystem": "communication",
+        "components": [
+          {
+            "component": "wifi_lite",
+            "optional": "true"
+          }
+        ]
+      }
+    ],
+    "vendor_adapter_dir": "//device/board/openvalley/niobeu4/liteos_m",
+    "third_party_dir": "//third_party",
+    "product_adapter_dir": "//vendor/openvalley/niobeu4/hals"
+}
