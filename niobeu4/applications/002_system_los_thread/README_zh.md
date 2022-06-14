@@ -263,8 +263,8 @@ OHOS_APP_RUN(Example_TskCaseEntry);
 ### 修改 Kconfig.liteos_m.board 文件
 
 - 进入//kernel/liteos_m目录, 在menuconfig配置中进入如下选项:
-     `(Top) → Platform → Board Selection → select board niobeu4 → use talkweb niobeu4 application → niobeu4 application choose`
-- 选择 `008_system_los_thread`
+     `(Top) → Platform → Board Selection → select board niobeu4 → use openvalley niobeu4 application → niobeu4 application choose`
+- 选择 `002_system_los_thread`
 - 回到sdk根目录，执行`hb build`脚本进行编译。
 
 ### 运行结果<a name="section_os_thread_example"></a>
