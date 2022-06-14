@@ -258,8 +258,8 @@ OHOS_APP_RUN(semp_example);
 ## 编译调试
 
 - 进入//kernel/liteos_m目录, 在menuconfig配置中进入如下选项:
-     `(Top) → Platform → Board Selection → select board niobeu4 → use talkweb niobeu4 application → niobeu4 application choose`
-- 选择 `012_system_los_semp`
+     `(Top) → Platform → Board Selection → select board niobeu4 → use openvalley niobeu4 application → niobeu4 application choose`
+- 选择 `006_system_los_semp`
 - 回到sdk根目录，执行`hb build`脚本进行编译。
 
 
