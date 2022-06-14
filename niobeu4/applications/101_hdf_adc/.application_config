@@ -1,4 +1,4 @@
-# Copyright (c) 2022 OpenValley Digital Co. LTD.
+# Copyright (c) 2022 OpenValley Digital Co. Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -14,6 +14,7 @@
 
 config NIOBEU4_APPLICATION_101
     bool "101_hdf_adc"
+    select DRIVERS
     select DRIVERS_HDF 
     select DRIVERS_HDF_PLATFORM
     select DRIVERS_HDF_CONFIG_MACRO

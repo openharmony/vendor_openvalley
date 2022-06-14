@@ -20,7 +20,7 @@
 static void Niobeu4HelloWorld(void)
 {
     printf("**********************\n");
-    printf("*  [Talkweb/Niobeu4] *\n");
+    printf("*  [Openvalley/Niobeu4] *\n");
     printf("*    Hello world.    *\n");
     printf("**********************\n");
     return;

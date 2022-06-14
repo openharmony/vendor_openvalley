@@ -222,8 +222,8 @@ void os_mutex_example(void)
 ## 编译调试
 
 - 进入//kernel/liteos_m目录, 在menuconfig配置中进入如下选项:
-     `(Top) → Platform → Board Selection → select board niobeu4 → use talkweb niobeu4 application → niobeu4 application choose`
-- 选择 `011_system_los_mutex`
+     `(Top) → Platform → Board Selection → select board niobeu4 → use openvalley niobeu4 application → niobeu4 application choose`
+- 选择 `005_system_los_mutex`
 - 回到sdk根目录，执行`hb build`脚本进行编译。
 
 
