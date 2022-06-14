@@ -6,13 +6,13 @@
 在Niobeu4开发板系统代码中，Hello World程序位于applications目录下面，具体路径如下：
 
 ```text
-device/board/talkweb/niobeu4/applications/001_system_startup_helloworld/hello_world.c
+device/board/openvalley/niobeu4/applications/001_quick_start/hello_world.c
 ```
 ## 编译调试
 ----
 - 进入//kernel/liteos_m目录, 在menuconfig配置中进入如下选项:
-     `(Top) → Platform → Board Selection → select board niobeu4 → use talkweb niobeu4 application → niobeu4 application choose`
-- 选择 `001_system_startup_helloworld`
+     `(Top) → Platform → Board Selection → select board niobeu4 → use openvalley niobeu4 application → niobeu4 application choose`
+- 选择 `001_quick_start`
 - 回到sdk根目录，执行`hb build`脚本进行编译。
 
 ## 运行结果
@@ -20,7 +20,7 @@ device/board/talkweb/niobeu4/applications/001_system_startup_helloworld/hello_wo
 示例代码编译烧录代码后，按下开发板的RESET按键，通过串口助手查看日志，显示内容如下则表示执行成功:
 ```text
 **********************
-*  [Talkweb/Niobeu4] *
+*  [Openvalley/Niobeu4] *
 *    Hello world.    *
 **********************
 ```

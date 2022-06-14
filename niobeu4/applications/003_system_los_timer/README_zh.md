@@ -201,8 +201,8 @@ UINT32 Example_TaskEntry(VOID)
 ### 修改 Kconfig.liteos_m.board 文件
 
 - 进入//kernel/liteos_m目录, 在menuconfig配置中进入如下选项:
-     `(Top) → Platform → Board Selection → select board niobeu4 → use talkweb niobeu4 application → niobeu4 application choose`
-- 选择 `009_system_los_timer`
+     `(Top) → Platform → Board Selection → select board niobeu4 → use openvalley niobeu4 application → niobeu4 application choose`
+- 选择 `003_system_los_timer`
 - 回到sdk根目录，执行`hb build`脚本进行编译。
 
 ### 运行结果<a name="sec_os_timer_example"></a>

@@ -18,8 +18,8 @@
 
 static const char OHOS_DEVICE_TYPE[] = {"ESP32"};
 static const char OHOS_DISPLAY_VERSION[] = {"01.00.00"};
-static const char OHOS_MANUFACTURE[] = {"Talkweb"};
-static const char OHOS_BRAND[] = {"Talkweb"};
+static const char OHOS_MANUFACTURE[] = {"Openvalley"};
+static const char OHOS_BRAND[] = {"Openvalley"};
 static const char OHOS_MARKET_NAME[] = {"Niobeu4"};
 static const char OHOS_PRODUCT_SERIES[] = {"Niobeu4"};
 static const char OHOS_PRODUCT_MODEL[] = {"Niobeu4"};
