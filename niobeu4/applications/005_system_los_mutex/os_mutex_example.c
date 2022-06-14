@@ -59,7 +59,7 @@ void twoThread(UINT32 arg)
     while (1) {
         LOS_MuxPend(mutex2_id, osWaitForever);
         char tmp[MAX_STR_LEN] = {0};
-        ret = sprintf_s(tmp, MAX_STR_LEN, "%s+twoThread", MAX_STR_LEN);
+        ret = sprintf_s(tmp, MAX_STR_LEN, "%s+twoThread", g_str);
         if (ret < 0) {
             printf("sprintf_s fail!\r\n");
         }
@@ -81,7 +81,7 @@ void threeThread(UINT32 arg)
         LOS_MuxPend(mutex1_id, osWaitForever);
         LOS_MuxPend(mutex2_id, osWaitForever);
         char tmp[MAX_STR_LEN] = {0};
-        ret = sprintf_s(tmp, MAX_STR_LEN, "%s+threeThread", MAX_STR_LEN);
+        ret = sprintf_s(tmp, MAX_STR_LEN, "%s+threeThread", g_str);
         if (ret < 0) {
             printf("sprintf_s fail!\r\n");
         }
