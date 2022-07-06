@@ -19,12 +19,12 @@ kernel_module(module_name){
         "adc_example.c",
     ]
     include_dirs = [
-        "//drivers/framework/include/platform/",
-        "//drivers/framework/include/utils/",
-        "//drivers/framework/support/platform/include/adc",
-        "//drivers/adapter/khdf/liteos_m/osal/include/",
-        "//drivers/framework/include/core/",
-        "//drivers/framework/include/osal/",
+        "//drivers/hdf_core/framework/include/platform/",
+        "//drivers/hdf_core/framework/include/utils/",
+        "//drivers/hdf_core/framework/support/platform/include/adc",
+        "//drivers/hdf_core/adapter/khdf/liteos_m/osal/include/",
+        "//drivers/hdf_core/framework/include/core/",
+        "//drivers/hdf_core/framework/include/osal/",
     ]
 }
 
