@@ -1,25 +1,46 @@
 # vendor_openvalley
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+## 介绍
+该仓库托管湖南开鸿智谷数字产业发展有限公司Niobe系列开发板的示例程序、配置文件及文档。
 
-#### 软件架构
-软件架构说明
+## 软件架构
+代码路径说明
+
+```
+vendor/openvalley/
+└──niobeu4              # niobeu4开发板
+   ├── niobeu4/applications     # 应用程序目录
+   ├── kernel_configs   # 内核配置
+   └── hals
+└──niobeu4_xts          # niobeu4_xts代码
+   ├── hdf_config       # 开发板配置目录
+   ├── kernel_configs   # 内核配置
+   └── hals
+```
+
+## 使用说明
+
+### 编译
+
+```
+进入https://gitee.com/openharmony-sig/device_board_openvalley/tree/master/niobeu4 目录参考REAMD.md文档进行编译 
+```
 
 
-#### 安装教程
+## 示例展示
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+开发套件SDK中提供了大量示例代码：
 
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
+| 示例功能                  | 示例名称                                                     |
+| ------------------------- | :----------------------------------------------------------- |
+| 调试打印示例              | [001_quick_start](niobeu4/applications/001_quick_start/README_zh.md) |
+| `LOS`接口线程使用示例     | [002_system_los_thread](niobeu4/applications/002_system_los_thread/README_zh.md) |
+| `LOS`接口定时器使用示例   | [003_system_los_timer](niobeu4/applications/003_system_los_timer/README_zh.md) |
+| `LOS`接口事件使用示例     | [004_system_los_event](niobeu4/applications/004_system_los_event/README_zh.md) |
+| `LOS`接口互斥锁使用示例   | [005_system_los_mutex](niobeu4/applications/005_system_los_mutex/README_zh.md) |
+| `LOS`接口信号量使用示例   | [006_system_los_semp](niobeu4/applications/006_system_los_semp/README_zh.md) |
+| `LOS`接口消息队列使用示例 | [007_system_los_message](niobeu4/applications/007_system_los_message/README_zh.md) |
+| ADC采集示例               | [101_hdf_adc](niobeu4/applications/101_hdf_adc/README_zh.md) |
 
 #### 参与贡献
 
