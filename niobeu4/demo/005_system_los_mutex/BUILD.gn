@@ -11,5 +11,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-group("niobeu4") {
+import("//kernel/liteos_m/liteos.gni")
+
+module_name = get_path_info(rebase_path("."), "name")
+kernel_module(module_name){
+    sources = [
+        "os_mutex_example.c"
+    ]
+    
+    include_dirs = [
+        "//kernel/liteos_m/kernel/include"
+    ]
 }

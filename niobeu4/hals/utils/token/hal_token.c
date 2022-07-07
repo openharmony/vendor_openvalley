@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 OpenValley Digital Co., Ltd.
+ * Copyright (c) 2022 Hunan OpenValley Digital Industry Development Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,11 +17,11 @@
 #include "ohos_errno.h"
 #include "ohos_types.h"
 
-/* productkey adn ProductSecret */
-static char ProductSecret[] = {"ec76e4a427446224"};
-static char ProductKey[] = {"k0bvhXvUX"}; // ProductKey by OEM.
+ /* productkey adn ProductSecret */
+static char ProductSecret[] = { "ec76e4a427446224" };
+static char ProductKey[] = { "k0bvhXvUX" };  // ProductKey by OEM.
 
-static int OEMReadToken(char *token, unsigned int len)
+static int OEMReadToken(char* token, unsigned int len)
 {
     // OEM need add here, read token from device
     (void)(token);
@@ -29,7 +29,7 @@ static int OEMReadToken(char *token, unsigned int len)
     return EC_SUCCESS;
 }
 
-static int OEMWriteToken(const char *token, unsigned int len)
+static int OEMWriteToken(const char* token, unsigned int len)
 {
     // OEM need add here, write token to device
     (void)(token);
@@ -37,7 +37,7 @@ static int OEMWriteToken(const char *token, unsigned int len)
     return EC_SUCCESS;
 }
 
-static int OEMGetAcKey(char *acKey, unsigned int len)
+static int OEMGetAcKey(char* acKey, unsigned int len)
 {
     // OEM need add here, get AcKey
     (void)(acKey);
@@ -45,7 +45,7 @@ static int OEMGetAcKey(char *acKey, unsigned int len)
     return EC_SUCCESS;
 }
 
-static int OEMGetProdId(char *productId, unsigned int len)
+static int OEMGetProdId(char* productId, unsigned int len)
 {
     // OEM need add here, get ProdId
     (void)(productId);
@@ -53,79 +53,69 @@ static int OEMGetProdId(char *productId, unsigned int len)
     return EC_SUCCESS;
 }
 
-static int OEMGetProdKey(char *productKey, unsigned int len)
+static int OEMGetProdKey(char* productKey, unsigned int len)
 {
-    // OEM need add here, get ProdKey
     int ret;
-    (void)(len);
     ret = memcpy_s(productKey, len, ProductKey, strlen(ProductKey));
-    if (ret != EOK) {
+    if (ret != 0) {
         return EC_FAILURE;
     }
     return EC_SUCCESS;
 }
-static int OEMGetProductSecret(char *productSecret, unsigned int len)
+static int OEMGetProductSecret(char* productSecret, unsigned int len)
 {
-    // OEM need add here, get ProdKey
     int ret;
-    (void)(len);
     ret = memcpy_s(productSecret, len, ProductSecret, strlen(ProductSecret));
-    if (ret != EOK) {
+    if (ret != 0) {
         return EC_FAILURE;
     }
     return EC_SUCCESS;
 }
 
-int HalReadToken(char *token, unsigned int len)
+int HalReadToken(char* token, unsigned int len)
 {
     if (token == NULL) {
         return EC_FAILURE;
     }
-
     return OEMReadToken(token, len);
 }
 
-int HalWriteToken(const char *token, unsigned int len)
+int HalWriteToken(const char* token, unsigned int len)
 {
     if (token == NULL) {
         return EC_FAILURE;
     }
-
     return OEMWriteToken(token, len);
 }
 
-int HalGetAcKey(char *acKey, unsigned int len)
+int HalGetAcKey(char* acKey, unsigned int len)
 {
     if (acKey == NULL) {
         return EC_FAILURE;
     }
-
     return OEMGetAcKey(acKey, len);
 }
 
-int HalGetProdId(char *productId, unsigned int len)
+int HalGetProdId(char* productId, unsigned int len)
 {
     if (productId == NULL) {
         return EC_FAILURE;
     }
-
     return OEMGetProdId(productId, len);
 }
 
-int HalGetProdKey(char *productKey, unsigned int len)
+int HalGetProdKey(char* productKey, unsigned int len)
 {
     if (productKey == NULL) {
         return EC_FAILURE;
     }
-
     return OEMGetProdKey(productKey, len);
 }
 
-int HalGetProductSecret(char *productSecret, unsigned int len)
+int HalGetProductSecret(char* productSecret, unsigned int len)
 {
     if (productSecret == NULL) {
         return EC_FAILURE;
     }
-
     return OEMGetProductSecret(productSecret, len);
 }
