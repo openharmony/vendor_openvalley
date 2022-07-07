@@ -1,0 +1,162 @@
+{
+  "product_name": "niobeu4_xts",
+  "type": "mini",
+  "version": "3.0",
+  "ohos_version": "OpenHarmony 3.1",
+  "device_company": "openvalley",
+  "board": "niobeu4",
+  "kernel_type": "liteos_m",
+  "kernel_version": "3.0.0",
+  "subsystems": [
+    {
+      "subsystem": "hiviewdfx",
+      "components": [
+        {
+          "component": "hilog_lite",
+          "features": []
+        },
+        {
+          "component": "hievent_lite",
+          "features": []
+        }
+      ]
+    },
+    {
+      "subsystem": "distributedschedule",
+      "components": [
+        {
+          "component": "samgr_lite",
+          "features": [
+            "config_ohos_distributedschedule_samgr_lite_shared_task_size = 4096"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "distributeddatamgr",
+      "components": [
+        {
+          "component": "kv_store",
+          "features": [
+            "enable_ohos_utils_native_lite_kv_store_use_posix_kv_api = false"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "startup",
+      "components": [
+        {
+          "component": "bootstrap_lite",
+          "features": []
+        },
+        {
+          "component": "syspara_lite",
+          "features": [
+            "enable_ohos_startup_syspara_lite_use_posix_file_api = false",
+            "enable_ohos_startup_syspara_lite_use_thirdparty_mbedtls = false",
+            "config_ohos_startup_syspara_lite_data_path = \"/openvalley/\""
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "kernel",
+      "components": [
+        {
+          "component": "liteos_m",
+          "features": [
+            "ohos_kernel_liteos_m_lwip_path = \"//device/soc/espressif/esp32/components/lwip\""
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "utils",
+      "components": [
+        {
+          "component": "file",
+          "features": []
+        },
+        {
+          "component": "timer_task"
+        },
+        {
+          "component": "kal_timer",
+          "features": [
+            "enable_histreamer_plugin_ffmpeg_adapter = false",
+            "config_ohos_distributedschedule_samgr_lite_shared_task_size = 4096"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "security",
+      "components": [
+        {
+          "component": "huks",
+          "features": [
+            "huks_use_lite_storage = true",
+            "huks_use_hardware_root_key = true",
+            "huks_config_file = \"hks_config_lite.h\"",
+            "huks_key_store_path = \"storage\"",
+            "ohos_security_huks_mbedtls_porting_path = \"//device/board/openvalley/niobeu4/liteos_m/hals/mbedtls\"",
+            "deps = []"
+          ]
+        }
+      ]
+    },
+    {
+      "subsystem": "updater",
+      "components": [
+        
+      ]
+    },
+    {
+      "subsystem": "iot_hardware",
+      "components": [
+        { "component": "iot_controller", "features":[] }
+      ]
+    },
+    {
+      "subsystem": "communication",
+      "components": [
+        {
+          "component": "wifi_lite",
+          "optional": "true"
+        }
+      ]
+    },
+    {
+      "subsystem": "xts",
+      "components": [
+        {
+          "component": "xts_acts",
+          "features": [
+            "enable_ohos_test_xts_acts_use_thirdparty_lwip = true"
+          ]
+        },
+        {
+          "component": "xts_tools",
+          "features": []
+        }
+      ]
+    }
+  ],
+  "vendor_adapter_dir": "//device/board/openvalley/niobeu4/liteos_m",
+  "third_party_dir": "//third_party",
+  "product_adapter_dir": "//vendor/openvalley/niobeu4_xts/hals",
+  "ohos_product_type":"",
+  "ohos_manufacture":"",
+  "ohos_brand":"",
+  "ohos_market_name":"",
+  "ohos_product_series":"",
+  "ohos_product_model":"",
+  "ohos_software_model":"",
+  "ohos_hardware_model":"",
+  "ohos_hardware_profile":"",
+  "ohos_serial":"",
+  "ohos_bootloader_version":"",
+  "ohos_secure_patch_level":"",
+  "ohos_abi_list":""
+}
