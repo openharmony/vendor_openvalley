@@ -11,5 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-group("niobeu4") {
-}
+
+config NIOBEU4_APPLICATION_004
+    bool "004_system_los_event"

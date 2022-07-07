@@ -1,9 +1,9 @@
 {
-  "subsystem":"product_niobeu4",
+  "subsystem": "product_niobeu4",
   "parts": {
     "product_niobeu4": {
       "module_list": [
-        "//vendor/openvalley/niobeu4:niobeu4"
+        "//base/update/ota_lite/frameworks:ota_lite"
       ]
     }
   }

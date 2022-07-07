@@ -11,5 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-group("niobeu4") {
-}
+
+config NIOBEU4_APPLICATION_101
+    bool "101_hdf_adc"
+    select DRIVERS
+    select DRIVERS_HDF 
+    select DRIVERS_HDF_PLATFORM
+    select DRIVERS_HDF_CONFIG_MACRO
+    select DRIVERS_HDF_PLATFORM_ADC
