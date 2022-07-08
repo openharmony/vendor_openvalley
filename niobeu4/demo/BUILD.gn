@@ -20,8 +20,8 @@ if (ohos_kernel_type == "liteos_m") {
     }
     else  
     {
-      # fill your application dirent name between " ", if you want to write your application.
-      modules = [" "]
+      # fill your application dirent name between [] with "", if you want to write your application.
+      modules = []
     }
   }
 }
