@@ -18,7 +18,7 @@ kernel_module(module_name) {
     if (true)
     {
         sources =  [ 
-            "gattc_example.c",
+            "bluetooth_example.c",
         ]
         include_dirs = [
             "//device/board/openvalley/niobeu4/liteos_m/hals/driver/bluetooth_lite",
