@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef __GATTC_EXAMPLE_H__
-#define __GATTC_EXAMPLE_H__
+#ifndef __BLUETOOTH_EXAMPLE_H__
+#define __BLUETOOTH_EXAMPLE_H__
 #include "stdbool.h"
 #include "securec.h"
 #include "ohos_bt_def.h"
@@ -47,4 +47,4 @@ struct GattcProfileInst {
     uint16_t char_handle;
     BdAddrs remote_bda;
 };
-#endif /* __GATTC_EXAMPLE_H__ */
+#endif /* __BLUETOOTH_EXAMPLE_H__ */
