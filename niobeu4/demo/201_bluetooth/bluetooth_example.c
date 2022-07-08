@@ -215,11 +215,11 @@ static void act_notify_handle(GattInterfaceType gattc_if, BleGattcParam *p_data)
             BT_LOGE("malloc error, gattc no mem");
         } else {
             ret_status = BleGattcGetDescrByCharHandle(gattc_if,
-                                                        gl_profile_tab[PROFILE_A_APP_ID].conn_id,
-                                                        p_data->reg_for_notify.handle,
-                                                        notify_descr_uuid,
-                                                        descr_elem_result,
-                                                        &count);
+                                                      gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+                                                      p_data->reg_for_notify.handle,
+                                                      notify_descr_uuid,
+                                                      descr_elem_result,
+                                                      &count);
             if (ret_status != BT_SUCCESS) {
                 BT_LOGE("BleGattcGetDescrByCharHandle error");
             }
@@ -369,52 +369,56 @@ static void gattc_event_handler(GattcBleCallbackEvent event, GattInterfaceType g
     }
 }
 
-static void gap_cb(GapSearchEvent event, BleGapParam *param)
+static void scan_result_evt(BleGapParam *param)
 {
     uint8_t *adv_name = NULL;
     uint8_t adv_name_len = 0;
+    BleGapParam *scan_result = (BleGapParam *)param;
+    switch (scan_result->scan_rst.search_evt) {
+        case OHOS_GAP_SEARCH_INQ_RES_EVT:
+            BT_LOGE("searched Adv Data Len %d, Scan Response Len %d",
+                     scan_result->scan_rst.adv_data_len, scan_result->scan_rst.scan_rsp_len);
+            adv_name = BleResolveAdvData(scan_result->scan_rst.ble_adv,
+                                         OHOS_BLE_AD_TYPE_NAME_CMPL, &adv_name_len);
+            if (adv_name_len) {
+                BT_LOGE("searched Device Name Len %d", adv_name_len);
+                BtLogBufferChar(GATTC_TAG, adv_name, adv_name_len);
+                BT_LOGE("\n");
+            }
+
+            if (adv_name != NULL) {
+                if (strlen(remote_device_name) == adv_name_len &&
+                    strncmp((char *)adv_name, remote_device_name, adv_name_len) == 0) {
+                    BT_LOGE("searched device %s\n", remote_device_name);
+                    if (connect == false) {
+                        connect = true;
+                        BT_LOGE("connect to the remote device.");
+                        BleStopScan();
+                        memcpy_s(directAddr, sizeof(directAddr),
+                                    scan_result->scan_rst.bda, sizeof(directAddr));
+                        BleGattcConnect(gl_profile_tab[PROFILE_A_APP_ID].gattc_if,
+                                        NULL, scan_result->scan_rst.bda,
+                                        true, BLE_ADDR_TYPE_PUBLIC);
+                    }
+                }
+            }
+            break;
+        case OHOS_GAP_SEARCH_INQ_CMPL_EVT:
+            break;
+        default:
+            break;
+    }    
+}
+
+static void gap_cb(GapSearchEvent event, BleGapParam *param)
+{
     switch (event) {
         case OHOS_GAP_BLE_SCAN_PARAM_SET_COMPLETE_EVT: {
             BleStartScan();
             break;
         }
         case OHOS_GAP_BLE_SCAN_RESULT_EVT: {
-            BleGapParam *scan_result = (BleGapParam *)param;
-            switch (scan_result->scan_rst.search_evt) {
-                case OHOS_GAP_SEARCH_INQ_RES_EVT:
-                    BT_LOGE("searched Adv Data Len %d, Scan Response Len %d",
-                             scan_result->scan_rst.adv_data_len, scan_result->scan_rst.scan_rsp_len);
-                    adv_name = BleResolveAdvData(scan_result->scan_rst.ble_adv,
-                                                 OHOS_BLE_AD_TYPE_NAME_CMPL, &adv_name_len);
-                    if (adv_name_len) {
-                        BT_LOGE("searched Device Name Len %d", adv_name_len);
-                        BtLogBufferChar(GATTC_TAG, adv_name, adv_name_len);
-
-                        BT_LOGE("\n");
-                    }
-
-                    if (adv_name != NULL) {
-                        if (strlen(remote_device_name) == adv_name_len &&
-                            strncmp((char *)adv_name, remote_device_name, adv_name_len) == 0) {
-                            BT_LOGE("searched device %s\n", remote_device_name);
-                            if (connect == false) {
-                                connect = true;
-                                BT_LOGE("connect to the remote device.");
-                                BleStopScan();
-                                memcpy_s(directAddr, sizeof(directAddr), 
-                                         scan_result->scan_rst.bda, sizeof(directAddr));
-                                BleGattcConnect(gl_profile_tab[PROFILE_A_APP_ID].gattc_if, 
-                                                NULL, scan_result->scan_rst.bda,
-                                                true, BLE_ADDR_TYPE_PUBLIC);
-                            }
-                        }
-                    }
-                    break;
-                case OHOS_GAP_SEARCH_INQ_CMPL_EVT:
-                    break;
-                default:
-                    break;
-            }
+            scan_result_evt(param);
             break;
         }
         default:
