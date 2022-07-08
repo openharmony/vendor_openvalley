@@ -369,6 +369,25 @@ static void gattc_event_handler(GattcBleCallbackEvent event, GattInterfaceType g
     }
 }
 
+static void adv_name_conncet(uint8_t *adv_name, uint8_t adv_name_len, 
+                             BleGapParam *scan_result)
+{
+    if (strlen(remote_device_name) == adv_name_len &&
+        strncmp((char *)adv_name, remote_device_name, adv_name_len) == 0) {
+        BT_LOGE("searched device %s\n", remote_device_name);
+        if (connect == false) {
+            connect = true;
+            BT_LOGE("connect to the remote device.");
+            BleStopScan();
+            memcpy_s(directAddr, sizeof(directAddr),
+                        scan_result->scan_rst.bda, sizeof(directAddr));
+            BleGattcConnect(gl_profile_tab[PROFILE_A_APP_ID].gattc_if,
+                            NULL, scan_result->scan_rst.bda,
+                            true, BLE_ADDR_TYPE_PUBLIC);
+        }
+    }
+}
+
 static void scan_result_evt(BleGapParam *param)
 {
     uint8_t *adv_name = NULL;
@@ -385,29 +404,15 @@ static void scan_result_evt(BleGapParam *param)
                 BtLogBufferChar(GATTC_TAG, adv_name, adv_name_len);
                 BT_LOGE("\n");
             }
-
             if (adv_name != NULL) {
-                if (strlen(remote_device_name) == adv_name_len &&
-                    strncmp((char *)adv_name, remote_device_name, adv_name_len) == 0) {
-                    BT_LOGE("searched device %s\n", remote_device_name);
-                    if (connect == false) {
-                        connect = true;
-                        BT_LOGE("connect to the remote device.");
-                        BleStopScan();
-                        memcpy_s(directAddr, sizeof(directAddr),
-                                    scan_result->scan_rst.bda, sizeof(directAddr));
-                        BleGattcConnect(gl_profile_tab[PROFILE_A_APP_ID].gattc_if,
-                                        NULL, scan_result->scan_rst.bda,
-                                        true, BLE_ADDR_TYPE_PUBLIC);
-                    }
-                }
+                adv_name_conncet(adv_name, adv_name_len, scan_result);
             }
             break;
         case OHOS_GAP_SEARCH_INQ_CMPL_EVT:
             break;
         default:
             break;
-    }    
+    }
 }
 
 static void gap_cb(GapSearchEvent event, BleGapParam *param)
@@ -426,20 +431,23 @@ static void gap_cb(GapSearchEvent event, BleGapParam *param)
     }
 }
 
-static void gattc_cb_do(GattcBleCallbackEvent event, GattInterfaceType gattc_if, BleGattcParam *param)
+static void gattc_cb_handle(GattcBleCallbackEvent event, GattInterfaceType gattc_if, BleGattcParam *param)
 {
-    /* If the gattc_if equal to profile A, call profile A cb handler,
-        * so here call each profile's callback */
-    do {
-        int idx;
-        for (idx = 0; idx < PROFILE_NUM; idx++) {
-            if (gattc_if == OHOS_GATT_IF_NONE ||
-                gattc_if == gl_profile_tab[idx].gattc_if) {
-                if (gl_profile_tab[idx].gattc_cb) {
-                    gl_profile_tab[idx].gattc_cb(event, gattc_if, param);
-                }
+    int idx;
+    for (idx = 0; idx < PROFILE_NUM; idx++) {
+        if (gattc_if == OHOS_GATT_IF_NONE ||
+            gattc_if == gl_profile_tab[idx].gattc_if) {
+            if (gl_profile_tab[idx].gattc_cb) {
+                gl_profile_tab[idx].gattc_cb(event, gattc_if, param);
             }
         }
+    }
+}
+
+static void gattc_cb_circle(GattcBleCallbackEvent event, GattInterfaceType gattc_if, BleGattcParam *param)
+{
+    do {
+        gattc_cb_handle(event, gattc_if, param);
     } while (0);
 }
 
@@ -456,7 +464,7 @@ static void gattc_cb(GattcBleCallbackEvent event, GattInterfaceType gattc_if, Bl
             return;
         }
     }
-    gattc_cb_do(event, gattc_if, param);
+    gattc_cb_circle(event, gattc_if, param);
 }
 
 void bluetooth_example(void)
