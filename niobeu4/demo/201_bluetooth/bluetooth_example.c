@@ -369,7 +369,7 @@ static void gattc_event_handler(GattcBleCallbackEvent event, GattInterfaceType g
     }
 }
 
-static void adv_name_conncet(uint8_t *adv_name, uint8_t adv_name_len, 
+static void adv_name_conncet(uint8_t *adv_name, uint8_t adv_name_len,
                              BleGapParam *scan_result)
 {
     if (strlen(remote_device_name) == adv_name_len &&
@@ -396,7 +396,7 @@ static void scan_result_evt(BleGapParam *param)
     switch (scan_result->scan_rst.search_evt) {
         case OHOS_GAP_SEARCH_INQ_RES_EVT:
             BT_LOGE("searched Adv Data Len %d, Scan Response Len %d",
-                     scan_result->scan_rst.adv_data_len, scan_result->scan_rst.scan_rsp_len);
+                    scan_result->scan_rst.adv_data_len, scan_result->scan_rst.scan_rsp_len);
             adv_name = BleResolveAdvData(scan_result->scan_rst.ble_adv,
                                          OHOS_BLE_AD_TYPE_NAME_CMPL, &adv_name_len);
             if (adv_name_len) {
@@ -459,8 +459,8 @@ static void gattc_cb(GattcBleCallbackEvent event, GattInterfaceType gattc_if, Bl
             gl_profile_tab[param->reg.app_id].gattc_if = gattc_if;
         } else {
             BT_LOGE("reg app failed, app_id %04x, status %d",
-                     param->reg.app_id,
-                     param->reg.status);
+                    param->reg.app_id,
+                    param->reg.status);
             return;
         }
     }
