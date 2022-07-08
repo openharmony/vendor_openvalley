@@ -39,3 +39,4 @@ config NIOBEU4_APPLICATION_NAME
     default "006_system_los_semp" if NIOBEU4_APPLICATION_006
     default "007_system_los_message" if NIOBEU4_APPLICATION_007
     default "101_hdf_adc" if NIOBEU4_APPLICATION_101
+    default "201_bluetooth" if NIOBEU4_APPLICATION_201
