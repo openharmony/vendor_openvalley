@@ -16,6 +16,7 @@
 #ifndef __GATTC_EXAMPLE_H__
 #define __GATTC_EXAMPLE_H__
 #include "stdbool.h"
+#include "securec.h"
 #include "ohos_bt_def.h"
 #include "ohos_bt_gatt.h"
 #include "bluetooth_device.h"
@@ -33,6 +34,8 @@ extern "C" {
 #define PROFILE_NUM 1
 #define PROFILE_A_APP_ID 0
 #define INVALID_HANDLE 0
+#define UUID16_BIT 2
+#define MTU_SIZE 500
 
 struct GattcProfileInst {
     GattcBleCallback gattc_cb;
