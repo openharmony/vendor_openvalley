@@ -165,8 +165,8 @@ static void evt_get_server(GattInterfaceType gattc_if, BleGattcParam *p_data)
 
             if (count > 0 && (char_elem_result[0].properties & OHOS_GATT_CHAR_PROP_BIT_NOTIFY)) {
                 gl_profile_tab[PROFILE_A_APP_ID].char_handle = char_elem_result[0].char_handle;
-                BleGattcRegisterForNotify(gattc_if, gl_profile_tab[PROFILE_A_APP_ID].remote_bda, 
-                                        char_elem_result[0].char_handle);
+                BleGattcRegisterForNotify(gattc_if, gl_profile_tab[PROFILE_A_APP_ID].remote_bda,
+                                          char_elem_result[0].char_handle);
             }
             free(char_elem_result);
             char_elem_result = NULL;
@@ -195,58 +195,63 @@ static void search_cmpl_event(GattInterfaceType gattc_if, BleGattcParam *p_data)
     }
 }
 
+static void act_notify_handle(GattInterfaceType gattc_if, BleGattcParam *p_data)
+{
+    uint16_t count = 0;
+    uint16_t notify_en = 1;
+    GattStatus ret_status = BleGattcGetAttrCount(gattc_if,
+                                                 gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+                                                 OHOS_GATT_DB_DESCRIPTOR,
+                                                 gl_profile_tab[PROFILE_A_APP_ID].service_start_handle,
+                                                 gl_profile_tab[PROFILE_A_APP_ID].service_end_handle,
+                                                 gl_profile_tab[PROFILE_A_APP_ID].char_handle,
+                                                 &count);
+    if (ret_status != BT_SUCCESS) {
+        BT_LOGE("BleGattcGetAttrCount error");
+    }
+    if (count > 0) {
+        descr_elem_result = malloc(sizeof(BleGattcDescrElem) * count);
+        if (!descr_elem_result) {
+            BT_LOGE("malloc error, gattc no mem");
+        } else {
+            ret_status = BleGattcGetDescrByCharHandle(gattc_if,
+                                                        gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+                                                        p_data->reg_for_notify.handle,
+                                                        notify_descr_uuid,
+                                                        descr_elem_result,
+                                                        &count);
+            if (ret_status != BT_SUCCESS) {
+                BT_LOGE("BleGattcGetDescrByCharHandle error");
+            }
+            if (count > 0 && descr_elem_result[0].uuid.len == UUID16_BIT &&
+                descr_elem_result[0].uuid.uuid.uuid16 == OHOS_GATT_UUID_CHAR_CLIENT_CONFIG) {
+                ret_status = BleGattcWriteCharDescr(gattc_if,
+                                                    gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+                                                    descr_elem_result[0].handle,
+                                                    sizeof(notify_en),
+                                                    (uint8_t *)&notify_en,
+                                                    OHOS_GATT_WRITE_TYPE_NO_RSP,
+                                                    OHOS_BLE_AUTH_NO_BOND);
+            }
+
+            if (ret_status != BT_SUCCESS) {
+                BT_LOGE("BleGattcWriteCharDescr error");
+            }
+            free(descr_elem_result);
+            descr_elem_result = NULL;
+        }
+    } else {
+        BT_LOGE("decsr not found");
+    }
+}
+
 static void reg_notify_evt(GattInterfaceType gattc_if, BleGattcParam *p_data)
 {
     BT_LOGE("OHOS_GATTC_REG_FOR_NOTIFY_EVT");
     if (p_data->reg_for_notify.status != BT_SUCCESS) {
         BT_LOGE("REG FOR NOTIFY failed: error status = %d", p_data->reg_for_notify.status);
     } else {
-        uint16_t count = 0;
-        uint16_t notify_en = 1;
-        GattStatus ret_status = BleGattcGetAttrCount(gattc_if,
-                                                     gl_profile_tab[PROFILE_A_APP_ID].conn_id,
-                                                     OHOS_GATT_DB_DESCRIPTOR,
-                                                     gl_profile_tab[PROFILE_A_APP_ID].service_start_handle,
-                                                     gl_profile_tab[PROFILE_A_APP_ID].service_end_handle,
-                                                     gl_profile_tab[PROFILE_A_APP_ID].char_handle,
-                                                     &count);
-        if (ret_status != BT_SUCCESS) {
-            BT_LOGE("BleGattcGetAttrCount error");
-        }
-        if (count > 0) {
-            descr_elem_result = malloc(sizeof(BleGattcDescrElem) * count);
-            if (!descr_elem_result) {
-                BT_LOGE("malloc error, gattc no mem");
-            } else {
-                ret_status = BleGattcGetDescrByCharHandle(gattc_if,
-                                                          gl_profile_tab[PROFILE_A_APP_ID].conn_id,
-                                                          p_data->reg_for_notify.handle,
-                                                          notify_descr_uuid,
-                                                          descr_elem_result,
-                                                          &count);
-                if (ret_status != BT_SUCCESS) {
-                    BT_LOGE("BleGattcGetDescrByCharHandle error");
-                }
-                if (count > 0 && descr_elem_result[0].uuid.len == UUID16_BIT &&
-                    descr_elem_result[0].uuid.uuid.uuid16 == OHOS_GATT_UUID_CHAR_CLIENT_CONFIG) {
-                    ret_status = BleGattcWriteCharDescr(gattc_if,
-                                                        gl_profile_tab[PROFILE_A_APP_ID].conn_id,
-                                                        descr_elem_result[0].handle,
-                                                        sizeof(notify_en),
-                                                        (uint8_t *)&notify_en,
-                                                        OHOS_GATT_WRITE_TYPE_NO_RSP,
-                                                        OHOS_BLE_AUTH_NO_BOND);
-                }
-
-                if (ret_status != BT_SUCCESS) {
-                    BT_LOGE("BleGattcWriteCharDescr error");
-                }
-                free(descr_elem_result);
-                descr_elem_result = NULL;
-            }
-        } else {
-            BT_LOGE("decsr not found");
-        }
+        act_notify_handle(gattc_if, p_data);
     }
 }
 
@@ -377,10 +382,10 @@ static void gap_cb(GapSearchEvent event, BleGapParam *param)
             BleGapParam *scan_result = (BleGapParam *)param;
             switch (scan_result->scan_rst.search_evt) {
                 case OHOS_GAP_SEARCH_INQ_RES_EVT:
-                    BT_LOGE("searched Adv Data Len %d, Scan Response Len %d", 
-                            scan_result->scan_rst.adv_data_len, scan_result->scan_rst.scan_rsp_len);
+                    BT_LOGE("searched Adv Data Len %d, Scan Response Len %d",
+                             scan_result->scan_rst.adv_data_len, scan_result->scan_rst.scan_rsp_len);
                     adv_name = BleResolveAdvData(scan_result->scan_rst.ble_adv,
-                                                OHOS_BLE_AD_TYPE_NAME_CMPL, &adv_name_len);
+                                                 OHOS_BLE_AD_TYPE_NAME_CMPL, &adv_name_len);
                     if (adv_name_len) {
                         BT_LOGE("searched Device Name Len %d", adv_name_len);
                         BtLogBufferChar(GATTC_TAG, adv_name, adv_name_len);
@@ -396,8 +401,10 @@ static void gap_cb(GapSearchEvent event, BleGapParam *param)
                                 connect = true;
                                 BT_LOGE("connect to the remote device.");
                                 BleStopScan();
-                                memcpy_s(directAddr, sizeof(directAddr), scan_result->scan_rst.bda, sizeof(directAddr));
-                                BleGattcConnect(gl_profile_tab[PROFILE_A_APP_ID].gattc_if, NULL, scan_result->scan_rst.bda,
+                                memcpy_s(directAddr, sizeof(directAddr), 
+                                         scan_result->scan_rst.bda, sizeof(directAddr));
+                                BleGattcConnect(gl_profile_tab[PROFILE_A_APP_ID].gattc_if, 
+                                                NULL, scan_result->scan_rst.bda,
                                                 true, BLE_ADDR_TYPE_PUBLIC);
                             }
                         }
