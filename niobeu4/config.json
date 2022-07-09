@@ -84,7 +84,6 @@
         {
           "component": "kal_timer",
           "features": [
-            "enable_histreamer_plugin_ffmpeg_adapter = false",
             "config_ohos_distributedschedule_samgr_lite_shared_task_size = 4096"
           ]
         }
@@ -132,7 +131,6 @@
         {
           "component": "xts_acts",
           "features": [
-            "enable_ohos_test_xts_acts_use_thirdparty_lwip = true"
           ]
         },
         {
