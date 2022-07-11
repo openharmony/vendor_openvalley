@@ -45,6 +45,6 @@ struct GattcProfileInst {
     uint16_t service_start_handle;
     uint16_t service_end_handle;
     uint16_t char_handle;
-    BdAddrs remote_bda;
+    BdAddr remote_bda;
 };
 #endif /* __BLUETOOTH_EXAMPLE_H__ */

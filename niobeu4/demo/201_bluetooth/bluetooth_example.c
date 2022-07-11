@@ -87,9 +87,9 @@ static void connect_evt(GattInterfaceType gattc_if, BleGattcParam *p_data)
 {
     BT_LOGE("OHOS_GATTC_CONNECT_EVT conn_id %d, if %d", p_data->connect.conn_id, gattc_if);
     gl_profile_tab[PROFILE_A_APP_ID].conn_id = p_data->connect.conn_id;
-    memcpy_s(gl_profile_tab[PROFILE_A_APP_ID].remote_bda,
-             sizeof(gl_profile_tab[PROFILE_A_APP_ID].remote_bda),
-             p_data->connect.remote_bda, sizeof(BdAddrs));
+    memcpy_s(gl_profile_tab[PROFILE_A_APP_ID].remote_bda.addr,
+             sizeof(gl_profile_tab[PROFILE_A_APP_ID].remote_bda.addr),
+             p_data->connect.remote_bda, sizeof(p_data->connect.remote_bda));
     BT_LOGE("REMOTE BDA:");
     BtError mtu_ret = BleGattcSendMtuReq(gattc_if, p_data->connect.conn_id);
     if (mtu_ret) {
@@ -290,8 +290,8 @@ static void write_descr_evt(GattInterfaceType gattc_if, BleGattcParam *p_data)
 
 static void srvc_chg_evt(GattInterfaceType gattc_if, BleGattcParam *p_data)
 {
-    BdAddrs bda;
-    memcpy_s(bda, sizeof(bda), p_data->srvc_chg.remote_bda, sizeof(BdAddrs));
+    uint32_t bda[OHOS_BD_ADDR_LEN];
+    memcpy_s(bda, sizeof(bda), p_data->srvc_chg.remote_bda, sizeof(p_data->srvc_chg.remote_bda));
     BT_LOGE("OHOS_GATTC_SRVC_CHG_EVT, bd_addr:");
 }
 
