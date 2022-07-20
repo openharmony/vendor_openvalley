@@ -40,5 +40,6 @@ config NIOBEU4_APPLICATION_NAME
     default "007_system_los_message" if NIOBEU4_APPLICATION_007
     default "101_hdf_adc" if NIOBEU4_APPLICATION_101
     default "102_hdf_gpio" if NIOBEU4_APPLICATION_102
+    default "103_hdf_uart" if NIOBEU4_APPLICATION_103
     default "201_bluetooth" if NIOBEU4_APPLICATION_201
     default "202_wifi" if NIOBEU4_APPLICATION_202
