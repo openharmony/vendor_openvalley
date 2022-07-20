@@ -13,16 +13,16 @@
 
 import("//kernel/liteos_m/liteos.gni")
 assert(defined(LOSCFG_DRIVERS_HDF_CONFIG_MACRO), "Must Config LOSCFG_DRIVERS_HDF_CONFIG_MACRO in kernel/liteos_m menuconfig!") 
-assert(defined(LOSCFG_DRIVERS_HDF_PLATFORM_GPIO), "Must Config LOSCFG_DRIVERS_HDF_PLATFORM_GPIO in kernel/liteos_m menuconfig!")   
+assert(defined(LOSCFG_DRIVERS_HDF_PLATFORM_UART), "Must Config LOSCFG_DRIVERS_HDF_PLATFORM_UART in kernel/liteos_m menuconfig!")   
 module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name){
     sources = [
-        "gpio_example.c",
+        "uart_example.c",
     ]
     include_dirs = [
         "//drivers/hdf_core/framework/include/platform/",
         "//drivers/hdf_core/framework/include/utils/",
-        "//drivers/hdf_core/framework/support/platform/include/gpio",
+        "//drivers/hdf_core/framework/support/platform/include/uart",
         "//drivers/hdf_core/adapter/khdf/liteos_m/osal/include/",
         "//drivers/hdf_core/framework/include/core/",
         "//drivers/hdf_core/framework/include/osal/",
