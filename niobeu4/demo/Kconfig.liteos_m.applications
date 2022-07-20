@@ -41,5 +41,6 @@ config NIOBEU4_APPLICATION_NAME
     default "101_hdf_adc" if NIOBEU4_APPLICATION_101
     default "102_hdf_gpio" if NIOBEU4_APPLICATION_102
     default "103_hdf_uart" if NIOBEU4_APPLICATION_103
+    default "104_hdf_watchdog" if NIOBEU4_APPLICATION_104
     default "201_bluetooth" if NIOBEU4_APPLICATION_201
     default "202_wifi" if NIOBEU4_APPLICATION_202
