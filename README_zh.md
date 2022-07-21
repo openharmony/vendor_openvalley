@@ -8,23 +8,26 @@
 
 ```
 vendor/openvalley/
-└──niobeu4              # niobeu4开发板
-   ├── niobeu4/applications     # 应用程序目录
-   ├── kernel_configs   # 内核配置
-   └── hals
-└──niobeu4_xts          # niobeu4_xts代码
-   ├── hdf_config       # 开发板配置目录
-   ├── kernel_configs   # 内核配置
-   └── hals
+├── LICENSE
+├── niobeu4            
+│   ├── BUILD.gn
+│   ├── config.json    # config文件
+│   ├── demo           # 应用程序目录
+│   ├── hals           # 适配层目录
+│   ├── hdf_config     # hdf配置
+│   ├── kernel_configs # 内核配置
+│   ├── LICENSE
+│   └── ohos.build
+├── OAT.xml
+└── README_zh.md
+
 ```
 
 ## 使用说明
 
 ### 编译
 
-```
-进入https://gitee.com/openharmony-sig/device_board_openvalley/tree/master/niobeu4 目录参考REAMD.md文档进行编译 
-```
+在 [device_board_openvalle](https://gitee.com/openharmony-sig/device_board_openvalley/blob/master/niobeu4/README_zh.md) 仓库下链接进行详细介绍。
 
 
 ## 示例展示
@@ -33,14 +36,18 @@ vendor/openvalley/
 
 | 示例功能                  | 示例名称                                                     |
 | ------------------------- | :----------------------------------------------------------- |
-| 调试打印示例              | [001_quick_start](niobeu4/applications/001_quick_start/README_zh.md) |
-| `LOS`接口线程使用示例     | [002_system_los_thread](niobeu4/applications/002_system_los_thread/README_zh.md) |
-| `LOS`接口定时器使用示例   | [003_system_los_timer](niobeu4/applications/003_system_los_timer/README_zh.md) |
-| `LOS`接口事件使用示例     | [004_system_los_event](niobeu4/applications/004_system_los_event/README_zh.md) |
-| `LOS`接口互斥锁使用示例   | [005_system_los_mutex](niobeu4/applications/005_system_los_mutex/README_zh.md) |
-| `LOS`接口信号量使用示例   | [006_system_los_semp](niobeu4/applications/006_system_los_semp/README_zh.md) |
-| `LOS`接口消息队列使用示例 | [007_system_los_message](niobeu4/applications/007_system_los_message/README_zh.md) |
-| ADC采集示例               | [101_hdf_adc](niobeu4/applications/101_hdf_adc/README_zh.md) |
+| 调试打印示例              | [001_quick_start](niobeu4/demo/001_quick_start/README_zh.md) |
+| `LOS`接口线程使用示例     | [002_system_los_thread](https://gitee.com/talkweb_zhipengxie/vendor_openvalley/tree/master/niobeu4/demo/002_system_los_thread/README_zh.md) |
+| `LOS`接口定时器使用示例   | [003_system_los_timer](https://gitee.com/talkweb_zhipengxie/vendor_openvalley/tree/master/niobeu4/demo/003_system_los_timer/README_zh.md) |
+| `LOS`接口事件使用示例     | [004_system_los_event](niobeu4/demo/004_system_los_event/README_zh.md) |
+| `LOS`接口互斥锁使用示例   | [005_system_los_mutex](niobeu4/demo/005_system_los_mutex/README_zh.md) |
+| `LOS`接口信号量使用示例   | [006_system_los_semp](niobeu4/demo/006_system_los_semp/README_zh.md) |
+| `LOS`接口消息队列使用示例 | [007_system_los_message](niobeu4/demo/007_system_los_message/README_zh.md) |
+| `ADC`采集示例             | [101_hdf_adc](niobeu4/demo/101_hdf_adc/README_zh.md)         |
+| `GPIO`使用示例            | [102_hdf_gpio](niobeu4/demo/102_hdf_gpio/README_zh.md)       |
+| `UART`使用示例            | [103_hdf_uart](niobeu4/demo/103_hdf_uart/README_zh.md)       |
+| `BLUETOOTH`使用示例       | [201_bluetooth](niobeu4/demo/201_bluetooth/README_zh.md)     |
+| `WIFI`使用示例            | [202_wifi](niobeu4/demo/202_wifi/README_zh.md)               |
 
 #### 参与贡献
 
