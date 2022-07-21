@@ -24,42 +24,48 @@
 #define TASK_STACK_SIZE 4096
 #define TASK_PRIO 25
 
-#define LED_OFF 0
-#define LED_ON  1
+#define OFF 0
+#define ON  1
 
-// 在hcs文件中对应具体的GPIO口
+ // 在hcs文件中对应具体的GPIO口
 #define RED_LED_PIN_INDEX   0       // 红色LED
 #define BLUE_LED_PIN_INDEX  1       // 蓝色LED
-#define BUTTON_KEY_PIN_INDEX 2      // 独立按键
+#define PWR_SW_PIN_INDEX    2       // VCC_3.3 电源使能
+#define BUTTON_KEY_PIN_INDEX 3      // 独立按键
 
 osThreadId_t g_taskID = NULL;
+
 
 /**
  * @brief 中断回调函数
  *
  */
-static int32_t GpioIrqCallback(uint16_t gpio, void* data)
+static int32_t GpioIrqCallback(uint16_t gpio, int data)
 {
-    (void*)data;
-    HDF_LOGE("---> gpio %d intterrupt!!", gpio);
+    (void *)data;
+    HDF_LOGE("--->hdf gpio index %d intterrupt!!", gpio);
 }
 
 static void gpio_test(void)
 {
     uint16_t key_state = 0;
+    GpioSetDir(PWR_SW_PIN_INDEX, GPIO_DIR_OUT);     // 设置VCC_3.3电源使能
+    GpioWrite(PWR_SW_PIN_INDEX, ON);
+
     GpioSetDir(RED_LED_PIN_INDEX, GPIO_DIR_OUT);    // LED 配置为输出
     GpioSetDir(BLUE_LED_PIN_INDEX, GPIO_DIR_OUT);
+     
     GpioSetDir(BUTTON_KEY_PIN_INDEX, GPIO_DIR_IN);  // 按键配置为输入
-    GpioSetIrq(BUTTON_KEY_PIN_INDEX, GPIO_IRQ_TRIGGER_FALLING, GpioIrqCallback, NULL); // 设置中断、上升下降沿触发
+    GpioSetIrq(BUTTON_KEY_PIN_INDEX, GPIO_IRQ_TRIGGER_FALLING, (GpioIrqFunc)GpioIrqCallback, NULL); // 设置中断、上升下降沿触发
     GpioEnableIrq(BUTTON_KEY_PIN_INDEX);            // 使能中断
     while (1) {
-        GpioWrite(RED_LED_PIN_INDEX, LED_ON);       // 设置GPIO状态
-        GpioWrite(BLUE_LED_PIN_INDEX, LED_ON);      // 设置GPIO状态
+        GpioWrite(RED_LED_PIN_INDEX, ON);       // 设置GPIO状态
+        GpioWrite(BLUE_LED_PIN_INDEX, ON);      // 设置GPIO状态
         GpioRead(BUTTON_KEY_PIN_INDEX, &key_state); // 读取GPIO状态
         printf("--> The Button has been %s\r\n", key_state ? "released" : "pressed");
         osDelay(SYS_DELAY_TICKS);
-        GpioWrite(RED_LED_PIN_INDEX, LED_OFF);
-        GpioWrite(BLUE_LED_PIN_INDEX, LED_OFF);
+        GpioWrite(RED_LED_PIN_INDEX, OFF);
+        GpioWrite(BLUE_LED_PIN_INDEX, OFF);
         GpioRead(BUTTON_KEY_PIN_INDEX, &key_state);
         printf("--> The Button has been %s\r\n", key_state ? "released" : "pressed");
         osDelay(SYS_DELAY_TICKS);
