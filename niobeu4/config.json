@@ -49,14 +49,6 @@
         {
           "component": "bootstrap_lite",
           "features": []
-        },
-        {
-          "component": "syspara_lite",
-          "features": [
-            "enable_ohos_startup_syspara_lite_use_posix_file_api = false",
-            "enable_ohos_startup_syspara_lite_use_thirdparty_mbedtls = false",
-            "config_ohos_startup_syspara_lite_data_path = \"/openvalley/\""
-          ]
         }
       ]
     },
@@ -107,7 +99,7 @@
     {
       "subsystem": "updater",
       "components": [
-        
+        { "component": "ota_lite", "features":[] }
       ]
     },
     {
@@ -132,10 +124,6 @@
           "component": "xts_acts",
           "features": [
           ]
-        },
-        {
-          "component": "xts_tools",
-          "features": []
         }
       ]
     }
