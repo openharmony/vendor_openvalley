@@ -11,22 +11,56 @@ SCK： 时钟信号，由主设备控制发出。
 NSS（CS）： 从设备选择信号，由主设备控制。当NSS为低电平则选中从器件。
 
 ## 接口说明
-    1. spi open获取SPI设备的句柄:DevHandle SpiOpen(const struct SpiDevInfo *info);
-        参数说明: 
-            info:    指向SPI设备信息的指针
-            return:  如果操作成功，返回指向SPI设备句柄的指针，否则返回NULL
-    
-    2. uart transfer SPI设备的自定义传输函数:int32_t SpiTransfer(DevHandle handle, struct SpiMsg *msgs, uint32_t count);
-        参数说明: 
-            handle:  指向SPI设备句柄的指针
-            msgs:    要传输的数据的指针
-            count:   消息结构数组的长度
-            return:  如果操作成功，返回0，否则返回负值
-    
-    3. spi close获取SPI设备的句柄:void SpiClose(DevHandle handle);
-        参数说明: 
-            handle:  指向SPI设备句柄的指针
-            return:  如果操作成功，返回指向SPI设备句柄的指针，否则返回NULL
+
+### SpiOpen()
+
+```
+DevHandle SpiOpen(const struct SpiDevInfo *info)
+```
+
+**描述：**
+
+spi open获取SPI设备的句柄。
+
+**参数：**
+
+| 名字 | 描述                  |
+| :--- | :-------------------- |
+| info | 指向SPI设备信息的指针 |
+
+### SpiTransfer()
+
+```
+int32_t SpiTransfer(DevHandle handle, struct SpiMsg *msgs, uint32_t count)
+```
+
+**描述：**
+
+ uart transfer SPI设备的自定义传输函数。
+
+**参数：**
+
+| 名字   | 描述                  |
+| :----- | :-------------------- |
+| handle | 指向SPI设备句柄的指针 |
+| msgs   | 要传输的数据的指针    |
+| count  | 消息结构数组的长度    |
+
+### SpiClose()
+
+```
+void SpiClose(DevHandle handle)
+```
+
+**描述：**
+
+spi close关闭SPI设备的句柄。
+
+**参数：**
+
+| 名字   | 描述                  |
+| :----- | :-------------------- |
+| handle | 指向SPI设备句柄的指针 |
 
 ## 编译调试
 

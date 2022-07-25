@@ -1,10 +1,10 @@
-# Niobe u4开发板OpenHarmony内核编程开发——Semaphore
+# NiobeU4开发板OpenHarmony内核编程开发——Semaphore
 本示例将演示如何在Niobe u4开发板上使用liteos-m 接口进行信号量开发
 
 
 ## Semaphore API分析
 
-## LOS_SemCreate()
+### LOS_SemCreate()
 
 ```c
 UINT32 LOS_SemCreate(UINT16 count, UINT32 *semHandle);
@@ -22,7 +22,7 @@ UINT32 LOS_SemCreate(UINT16 count, UINT32 *semHandle);
 | count |信号量计数值的初始值，其取值范围：[0, OS_SEM_COUNTING_MAX_COUNT)|
 | semHandle |指针，指向存放信号量ID的对象|
 
-## LOS_BinarySemCreate()
+### LOS_BinarySemCreate()
 
 ```c
 UINT32 LOS_BinarySemCreate(UINT16 count, UINT32 *semHandle);
@@ -40,7 +40,7 @@ UINT32 LOS_BinarySemCreate(UINT16 count, UINT32 *semHandle);
 | count |信号量计数值的初始值，其取值范围:[0,1]|
 | semHandle |指针，指向存放信号量ID的对象|
 
-## LOS_SemPost()
+### LOS_SemPost()
 
 ```c
 UINT32 LOS_SemPost(UINT32 semHandle);
@@ -58,7 +58,7 @@ UINT32 LOS_SemPost(UINT32 semHandle);
 返回	0 - 成功，非0 - 失败
 
 
-## LOS_SemPend()
+### LOS_SemPend()
 
 ```c
 UINT32 LOS_SemPend(UINT32 semHandle, UINT32 timeout);
@@ -77,7 +77,7 @@ UINT32 LOS_SemPend(UINT32 semHandle, UINT32 timeout);
 返回	0 - 成功，非0 - 失败
 
 
-## LOS_SemGetValue()
+### LOS_SemGetValue()
 
 ```c
 UINT32 LOS_SemGetValue(UINT32 semHandle, INT32 *currVal);
@@ -98,7 +98,7 @@ UINT32 LOS_SemGetValue(UINT32 semHandle, INT32 *currVal);
 
 ## 软件设计
 
-**主要代码分析**
+### 主要代码分析
 
 在semp_example函数中，创建了两个信号量semMutex和semSync，通过semSync来实现线程Thread_semp1和Thread_semp2之间的同步；通过semMutex来实现线程Thread_sempA、Thread_sempB、Thread_sempC、Thread_sempD对全局变量g_str的互斥访问。
 
