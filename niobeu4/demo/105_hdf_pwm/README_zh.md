@@ -3,24 +3,55 @@
 
 ## 接口说明
 
-```
-1. pwm Open打开pwm函数:DevHandle PwmOpen(uint32_t num);
-    参数说明: 
-        num:      PWM设备号
-        return:   如果操作成功，返回PWM设备句柄，否则返回NULL
+### PwmOpen()
 
-2. pwm setConfig设置PWM设备的配置参数函数:int32_t PwmSetConfig(DevHandle handle, struct PwmConfig *config);
-    参数说明: 
-        handle:   设备句柄
-        config:   指向PwmConfig结构体指针
-        return:   如果操作成功，返回0，否则返回负值
-        
-3. pwm setDuty设置PWM占空比函数:int32_t PwmSetDuty(DevHandle handle, uint32_t duty);
-    参数说明: 
-        handle:   设备句柄
-        config:   要设置的占空比，单位为纳秒
-        return:   如果操作成功，返回0，否则返回负值
 ```
+DevHandle PwmOpen(uint32_t num)
+```
+
+**描述：**
+
+pwm Open打开pwm函数。
+
+**参数：**
+
+| 名字 | 描述      |
+| :--- | :-------- |
+| num  | PWM设备号 |
+
+### PwmSetConfig()
+
+```
+int32_t PwmSetConfig(DevHandle handle, struct PwmConfig *config)
+```
+
+**描述：**
+
+pwm setConfig设置PWM设备的配置参数函数。
+
+**参数：**
+
+| 名字   | 描述                    |
+| :----- | :---------------------- |
+| handle | 设备句柄                |
+| config | 指向PwmConfig结构体指针 |
+
+### PwmSetDuty()
+
+```
+int32_t PwmSetDuty(DevHandle handle, uint32_t duty)
+```
+
+**描述：**
+
+pwm setDuty设置PWM占空比函数。
+
+**参数：**
+
+| 名字   | 描述                       |
+| :----- | :------------------------- |
+| handle | 设备句柄                   |
+| config | 要设置的占空比，单位为纳秒 |
 
 ## 编译调试
 

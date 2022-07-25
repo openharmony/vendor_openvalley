@@ -2,11 +2,11 @@
 ----
 ## Hello World
 ----
-沿袭程序界的传统，第一个程序都是Hello World。在`Niobeu4`开发板中，指的是通过开发板串口，在串口日志中输出`Hello World`字符串。
-在Niobeu4开发板系统代码中，Hello World程序位于applications目录下面，具体路径如下：
+沿袭程序界的传统，第一个程序都是Hello World。在`NiobeU4`开发板中，指的是通过开发板串口，在串口日志中输出`Hello World`字符串。
+在Niobeu4开发板系统代码中，Hello World程序位于demo目录下面，具体路径如下：
 
 ```text
-device/board/openvalley/niobeu4/applications/001_quick_start/hello_world.c
+vendor/openvalley/niobeu4/demo/001_quick_start/hello_world.c
 ```
 ## 编译调试
 ----
