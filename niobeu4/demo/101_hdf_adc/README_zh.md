@@ -1,30 +1,63 @@
-﻿﻿﻿# NiobeU4开发板ADC使用说明文档
+﻿# NiobeU4开发板ADC使用说明文档
 
 ## 简介
 本案例程序将演示ADC采集相关程序。
 
 ## 接口说明
 
-```
-1. ADC Open 开启ADC函数:int32_t AdcOpen(uint32_t number);;
-    参数说明: 
-        number:   设置 1：ADC序号, 范围[1,2]
+### AdcOpen()
 
-2. ADC close 关闭ADC函数:void AdcClose(DevHandle handle);;
-    参数说明: 
-        handle:  设备句柄
-
-3. ADC Read ADC采集函数:int32_t  AdcRead(DevHandle handle, uint32_t channel, uint32_t *val);
-    参数说明: 
-        handle:  设备句柄
-        channel:  ADC通道,默认为6，6:GPIO34,范围 ADC1_CHANNEL:0-7, ADC2_CHANNEL:0-9
-        *val:      ADC采集结果指针
-        return:  返回HDF_SUCCESS,表示数据采集成功
-                         
 ```
+int32_t AdcOpen(uint32_t number)
+```
+
+**描述：**
+
+开启ADC函数，使用ADC的时候调用。
+
+**参数：**
+
+| 名字   | 描述                       |
+| :----- | :------------------------- |
+| number | 设置 1：ADC序号, 范围[1,2] |
+
+### AdcClose()
+
+```
+void AdcClose(DevHandle handle)
+```
+
+**描述：**
+
+关闭ADC函数，关闭ADC的时候调用。
+
+**参数：**
+
+| 名字   | 描述     |
+| :----- | :------- |
+| handle | 设备句柄 |
+
+### AdcRead()
+
+```
+int32_t  AdcRead(DevHandle handle, uint32_t channel, uint32_t *val)
+```
+
+**描述：**
+
+关闭ADC函数，关闭ADC的时候调用。
+
+**参数：**
+
+| 名字    | 描述                                                         |
+| :------ | :----------------------------------------------------------- |
+| handle  | 设备句柄                                                     |
+| channel | ADC通道,默认为6，6:GPIO34,范围 ADC1_CHANNEL:0-7, ADC2_CHANNEL:0-9 |
+| val     | ADC采集结果指针                                              |
 
 ## 约束
-ADC程序使用C语言编写，目前支持niobeu4开发板。
+
+ADC程序使用C语言编写，目前支持NiobeU4开发板。
 
 ## 案例程序
 ```

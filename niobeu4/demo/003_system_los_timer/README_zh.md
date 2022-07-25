@@ -1,10 +1,10 @@
-# Niobe u4开发板OpenHarmony内核编程开发——定时器
+# NiobeU4开发板OpenHarmony内核编程开发——定时器
 本示例将演示如何在Niobe u4开发板上使用liteos-m 接口进行定时器开发
 
 ## Timer API分析
 
 
-## LOS_SwtmrCreate()
+### LOS_SwtmrCreate()
 
 ```c
    UINT32 LOS_SwtmrCreate(UINT32 interval,
@@ -35,7 +35,7 @@
 | argument |定时器回调函数的参数|
 | arg |回调函数handler的入参|
 
-## LOS_SwtmrStart()
+### LOS_SwtmrStart()
 
 ```c
  UINT32 LOS_SwtmrStart(UINT32 swtmrID);
@@ -54,7 +54,7 @@
 |:--|:------|
 | swtmrID | 由osTimerNew获得的计时器ID.  |
 
-## LOS_SwtmrStop()
+### LOS_SwtmrStop()
 
 ```c
  UINT32 LOS_SwtmrStop(UINT32 swtmrID);
@@ -70,7 +70,7 @@
 |:--|:------|
 | swtmrID | 由LOS_SwtmrCreate获得的计时器ID.  |
 
-## LOS_SwtmrDelete()
+### LOS_SwtmrDelete()
 
 ```c
  UINT32 LOS_SwtmrDelete(UINT32 swtmrID);
@@ -88,9 +88,7 @@
 
 ## 软件设计
 
-## 软件设计
-
-**主要代码分析**
+### 主要代码分析
 
 创建一个单次定时器timerId1,设置定时时长为1000，启动timerId1，记录当前系统tickCount，而后暂停定时器timerId1，
 延期1000ticks后，可见timerId1并为被触发。再启动timerId1，在过去timerId1所剩的ticks数后，timerId1被触发。

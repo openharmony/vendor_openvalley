@@ -3,23 +3,55 @@
 
 ## 接口说明
 
-```
-1. I2C open打开I2C函数:DevHandle I2cOpen(int16_t number);
-    参数说明: 
-        number:  I2C控制器ID
-        return:  返回的handle不为NULL,表示初始化成功
+### I2cOpen()
 
-2. I2C close打开I2C函数:void I2cClose(DevHandle handle);
-    参数说明: 
-        handle:  指向通过I2cOpen获得的I2C 控制器的设备句柄的指针
-
-3. I2C transfer启动到I2C设备的自定义传输函数:int32_t I2cTransfer(DevHandle handle, struct I2cMsg *msgs, int16_t count);
-    参数说明: 
-        handle:  指向通过I2cOpen获得的I2C控制器的设备句柄的指针
-        msgs:    指示指向 I2C 传输消息结构体数组的指针
-        count:   表示消息结构数组的长度
-        return:  如果操作成功，返回传输的消息结构的数量,否则返回负值
 ```
+DevHandle I2cOpen(int16_t number)
+```
+
+**描述：**
+
+I2C open打开I2C函数。
+
+**参数：**
+
+| 名字   | 描述        |
+| :----- | :---------- |
+| number | I2C控制器ID |
+
+### I2cClose()
+
+```
+void I2cClose(DevHandle handle)
+```
+
+**描述：**
+
+I2C close打开I2C函数。
+
+**参数：**
+
+| 名字   | 描述                                          |
+| :----- | :-------------------------------------------- |
+| handle | 指向通过I2cOpen获得的I2C 控制器的设备句柄指针 |
+
+### I2cTransfer()
+
+```
+int32_t I2cTransfer(DevHandle handle, struct I2cMsg *msgs, int16_t count)
+```
+
+**描述：**
+
+I2C transfer启动到I2C设备的自定义传输函数。
+
+**参数：**
+
+| 名字   | 描述                                          |
+| :----- | :-------------------------------------------- |
+| handle | 指向通过I2cOpen获得的I2C 控制器的设备句柄指针 |
+| msgs   | 指示指向 I2C 传输消息结构体数组的指针         |
+| count  | 表示消息结构数组的长度                        |
 
 ## 编译调试
 
