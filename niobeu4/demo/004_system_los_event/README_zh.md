@@ -1,10 +1,10 @@
-# Niobe u4开发板OpenHarmony内核编程开发——事件标志
+# NiobeU4开发板OpenHarmony内核编程开发——事件标志
 本示例将演示如何在Niobe u4开发板上使用liteos-m 接口使用事件标志同步线程
 
 ## EventFlags API分析
 
 
-## LOS_EventInit()
+### LOS_EventInit()
 
 ```c
 UINT32 LOS_EventInit(PEVENT_CB_S eventCB);
@@ -20,7 +20,7 @@ UINT32 LOS_EventInit(PEVENT_CB_S eventCB);
 |:--|:------|
 | eventCB | 输入/输出，指向要初始化的事件控制块的指针  |
 
-## LOS_EventWrite()
+### LOS_EventWrite()
 
 ```c
 UINT32 LOS_EventWrite(PEVENT_CB_S eventCB, UINT32 events);
@@ -38,7 +38,7 @@ UINT32 LOS_EventWrite(PEVENT_CB_S eventCB, UINT32 events);
 | eventCB | 事件控制块， 由调用LOS_EventInit初始化得到  |
 | events | 事件掩码指定的事件.  |
 
-## LOS_EventRead()
+### LOS_EventRead()
 
 ```c
 UINT32 LOS_EventRead(PEVENT_CB_S eventCB, UINT32 eventMask, UINT32 mode, UINT32 timeOut);
@@ -63,7 +63,7 @@ UINT32 LOS_EventRead(PEVENT_CB_S eventCB, UINT32 eventMask, UINT32 mode, UINT32 
 
 ## 软件设计
 
-**主要代码分析**
+### 主要代码分析
 
 创建三个线程OS_Thread_EventSender，OS_Thread_EventReceiverOR，OS_Thread_EventReceiverAND；线程OS_Thread_EventSender通过对g_event_flags_id写入不同的事件，分别实现其于线程OS_Thread_EventReceiverOR和OS_Thread_EventReceiverAND之间的同步：
 线程OS_Thread_EventReceiverOR调用读事件进入阻塞状态，直到线程OS_Thread_EventSender写入事件0x00000001U；

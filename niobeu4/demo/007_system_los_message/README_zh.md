@@ -1,10 +1,10 @@
-# Niobe u4开发板OpenHarmony内核编程开发——message
+# NiobeU4开发板OpenHarmony内核编程开发——message
 本示例将演示如何在Niobe u4开发板上使用cmsis 2.0 接口进行消息队列开发
 
 
 ## message API分析
 
-## LOS_QueueCreate()
+### LOS_QueueCreate()
 
 ```c
 UINT32 LOS_QueueCreate(const CHAR *queueName,
@@ -29,7 +29,7 @@ UINT32 LOS_QueueCreate(const CHAR *queueName,
 | flags | 队列模式，暂未用，可传0 |
 | maxMsgSize | 消息的大小，该值范围：[1,0xffff-4] |
 
-## LOS_QueueReadCopy()
+### LOS_QueueReadCopy()
 
 ```c
 UINT32 LOS_QueueReadCopy(UINT32 queueID, VOID *bufferAddr, UINT32 *bufferSize, UINT32 timeOut);
@@ -49,7 +49,7 @@ UINT32 LOS_QueueReadCopy(UINT32 queueID, VOID *bufferAddr, UINT32 *bufferSize, U
 | bufferSize | 在读取之前维护缓冲区的期望大小，和读取后消息的实际大小 |
 | timeOut | 超时值，范围：[0,LOS_WAIT_FOREVER]，单位tick |
 
-## LOS_QueueWriteCopy()
+### LOS_QueueWriteCopy()
 
 ```c
 UINT32 LOS_QueueWriteCopy(UINT32 queueID, VOID *bufferAddr, UINT32 bufferSize, UINT32 timeOut);
@@ -70,7 +70,7 @@ UINT32 LOS_QueueWriteCopy(UINT32 queueID, VOID *bufferAddr, UINT32 bufferSize, U
 | timeout |超时值|
 
 
-## LOS_QueueRead()
+### LOS_QueueRead()
 
 ```c
 UINT32 LOS_QueueRead(UINT32 queueID, VOID *bufferAddr, UINT32 bufferSize, UINT32 timeOut);
@@ -91,7 +91,7 @@ UINT32 LOS_QueueRead(UINT32 queueID, VOID *bufferAddr, UINT32 bufferSize, UINT32
 返回	0 - 成功，非0 - 失败
 
 
-## LOS_QueueWrite()
+### LOS_QueueWrite()
 
 ```c
 UINT32 LOS_QueueWrite(UINT32 queueID, VOID *bufferAddr, UINT32 bufferSize, UINT32 timeOut);
@@ -112,7 +112,7 @@ UINT32 LOS_QueueWrite(UINT32 queueID, VOID *bufferAddr, UINT32 bufferSize, UINT3
 
 ## 软件设计
 
-**主要代码分析**
+### 主要代码分析
 
 创建一个队列，两个任务。任务1调用写队列接口发送消息，任务2通过读队列接口接收消息。
 

@@ -1,9 +1,9 @@
-# Niobe u4开发板OpenHarmony内核编程开发——mutex
+# NiobeU4开发板OpenHarmony内核编程开发——mutex
 本示例将演示如何在Niobe u4开发板上使用liteos-m 接口进行互斥锁开发
 
 ## mutex API分析
 
-## LOS_MuxCreate()
+### LOS_MuxCreate()
 
 ```c
 UINT32 LOS_MuxCreate(UINT32 *muxHandle);
@@ -19,7 +19,7 @@ UINT32 LOS_MuxCreate(UINT32 *muxHandle);
 |:--|:------|
 | muxHandle | 互斥锁id |
 
-## LOS_MuxPend()
+### LOS_MuxPend()
 
 ```c
 UINT32 LOS_MuxPend(UINT32 muxHandle, UINT32 timeout);
@@ -37,7 +37,7 @@ UINT32 LOS_MuxPend(UINT32 muxHandle, UINT32 timeout);
 | timeout | delay时间 |
 
 
-## LOS_MuxPost()
+### LOS_MuxPost()
 
 ```c
 UINT32 LOS_MuxPost(UINT32 muxHandle);
@@ -53,7 +53,7 @@ UINT32 LOS_MuxPost(UINT32 muxHandle);
 |:--|:------|
 | muxHandle | 互斥锁id，由LOS_MuxCreate创建得到 |
 
-## LOS_MuxDelete()
+### LOS_MuxDelete()
 
 ```c
 UINT32 LOS_MuxDelete(UINT32 muxHandle);
@@ -72,7 +72,7 @@ UINT32 LOS_MuxDelete(UINT32 muxHandle);
 
 ## 软件设计
 
-**主要代码分析**
+### 主要代码分析
 
 创建四个线程，同时访问全局变量g_str，通过互斥锁控制实现 g_str中的值按照 "firstThread" -->  "firstThread+twoThread"  -->  "firstThread+twoThread+threeThread" --> 清空   上述步骤。
 

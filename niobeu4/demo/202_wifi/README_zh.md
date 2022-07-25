@@ -1,45 +1,100 @@
-﻿﻿# NiobeU4开发板WIFI使用说明文档
+﻿# NiobeU4开发板WIFI使用说明文档
 
 ## 简介
 WLAN组件为设备提供接入与使用WLAN的相关接口，包括开启、关闭WLAN，扫描、监听WLAN状态等。本案例程序将演示怎么在Niobeu4开发板上使用wifi，编写一个客户端连接socket发包的业务程序，实现开发板联网与服务端进行数据通信。
 
 ## 接口说明
 
+### EnableWifi()
+
 ```
-1. Wifi enable打开wifi函数:WifiErrorCode EnableWifi(void);
-    参数说明: 
-        return:  返回NULL,表示初始化成功
-
-2. wifi disable关闭wifi函数:int32_t DisableWifi(void);
-    参数说明: 
-        return:  返回NULL表示成功
-
-3. wifi scan扫描函数:int32_t Scan(void);
-    参数说明: 
-        return:  返回0，表示成功，返回负数，表示失败
-
-4. wifi get scan list获取扫描列表函数:int32_t GetScanInfoList(WifiScanInfo* result, unsigned int* size);
-    参数说明: 
-        result:  扫描结果指针
-        size:    扫描wifi总数
-        return:  返回0，表示成功，返回负数，表示失败
-
-5. wifi add device config添加wifi配置函数:int32_t AddDeviceConfig(const WifiDeviceConfig* config, int* result);
-    参数说明: 
-        config:  wifi配置结构体指针,用于连接指定的Wi-Fi设备
-        result:  netid
-        return:  返回0，表示成功，返回负数，表示失败
-
-6. wifi init注册wifi回调函数:void WiFiInit(void);
-    参数说明: 
-        wifi_name:  wifi名称指针
-        wifi_pwd:   wifi密码指针
-
-7. wifi connect连接指定wifi函数:WifiConnectt(const char *ssid, const char *psk);
-    参数说明: 
-        *ssid:   WiFi名称
-        *psk:    WiFi密码
+WifiErrorCode EnableWifi(void)
 ```
+
+**描述：**
+
+Wifi enable打开wifi函数。
+
+### DisableWifi()
+
+```
+int32_t DisableWifi(void)
+```
+
+**描述：**
+
+wifi disable关闭wifi函数。
+
+### Scan()
+
+```
+int32_t Scan(void)
+```
+
+**描述：**
+
+wifi scan扫描函数。
+
+### GetScanInfoList()
+
+```
+int32_t GetScanInfoList(WifiScanInfo* result, unsigned int* size)
+```
+
+**描述：**
+
+wifi getScanInfoListt获取扫描列表函数。
+
+**参数：**
+
+| 名字   | 描述         |
+| :----- | :----------- |
+| result | 扫描结果指针 |
+| size   | 扫描wifi总数 |
+
+### AddDeviceConfig()
+
+```
+int32_t AddDeviceConfig(const WifiDeviceConfig* config, int* result)
+```
+
+**描述：**
+
+wifi getScanInfoListt获取扫描列表函数。
+
+**参数：**
+
+| 名字   | 描述                                       |
+| :----- | :----------------------------------------- |
+| config | wifi配置结构体指针,用于连接指定的Wi-Fi设备 |
+| result | netid                                      |
+
+### WiFiInit()
+
+```
+void WiFiInit(void)
+```
+
+**描述：**
+
+wifi init初始化wifi函数。
+
+### WifiConnect()
+
+```
+int32_t WifiConnect(const char *ssid, const char *psk);
+```
+
+**描述：**
+
+wifi init初始化wifi函数。
+
+**参数：**
+
+| 名字 | 描述     |
+| :--- | :------- |
+| ssid | WiFi名称 |
+| psk  | WiFi密码 |
 
 ## 约束
 WLAN服务组件使用C语言编写，目前支持niobeu4开发板。

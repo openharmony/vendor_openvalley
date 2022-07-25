@@ -1,19 +1,21 @@
-# Niobe u4开发板OpenHarmony内核编程开发——Thread多线程
+# NiobeU4开发板OpenHarmony内核编程开发——Thread多线程
 本示例将演示如何在Niobe u4开发板上使用liteos-m接口进行多线程开发
 
 ## Thread struct分析
 
-## TSK_INIT_PARAM_S
+### TSK_INIT_PARAM_S
 
+```
 typedef struct tagTskInitParam {
-    TSK_ENTRY_FUNC       pfnTaskEntry;              /**< Task entrance function                 */
-    UINT16               usTaskPrio;                /**< Task priority                          */
-    UINT32               uwArg;                     /**< Task parameters                        */
-    UINTPTR              stackAddr;                 /**< Task satck memory                      */
-    UINT32               uwStackSize;               /**< Task stack size                        */
-    CHAR                 *pcName;                   /**< Task name                              */
+    TSK_ENTRY_FUNC       pfnTaskEntry;              /< Task entrance function                 */
+    UINT16               usTaskPrio;                /< Task priority                          */
+    UINT32               uwArg;                     /< Task parameters                        */
+    UINTPTR              stackAddr;                 /< Task satck memory                      */
+    UINT32               uwStackSize;               /< Task stack size                        */
+    CHAR                 *pcName;                   /< Task name                              */
     UINT32               uwResved;                  /**< Reserved                               */
 } TSK_INIT_PARAM_S;
+```
 
 **描述：**
 |名字|描述|
@@ -27,7 +29,7 @@ typedef struct tagTskInitParam {
 
 ## Thread API分析
 
-## LOS_TaskCreate()
+### LOS_TaskCreate()
 
 ```c
 UINT32 LOS_TaskCreate(UINT32 *taskID, TSK_INIT_PARAM_S *taskInitParam)
@@ -46,7 +48,7 @@ UINT32 LOS_TaskCreate(UINT32 *taskID, TSK_INIT_PARAM_S *taskInitParam)
 | taskID | 指针，指向线程id.  |
 | taskInitParam |新建线程的相关属性以及线程的函数入口和参数等|
 
-## LOS_TaskSuspend()
+### LOS_TaskSuspend()
 
 ```c
 UINT32 LOS_TaskSuspend(UINT32 taskID);
@@ -63,7 +65,7 @@ UINT32 LOS_TaskSuspend(UINT32 taskID);
 |:--|:------|
 | taskID | 线程id  |
 
-## LOS_TaskResume()
+### LOS_TaskResume()
 
 ```c
 UINT32 LOS_TaskResume(UINT32 taskID)
@@ -79,7 +81,7 @@ UINT32 LOS_TaskResume(UINT32 taskID)
 |:--|:------|
 | taskID | 线程id  |
 
-## osThreadJoin()
+### osThreadJoin()
 
 ```c
 UINT32 LOS_TaskJoin(UINT32 taskID, UINTPTR *retval);
@@ -96,7 +98,7 @@ UINT32 LOS_TaskJoin(UINT32 taskID, UINTPTR *retval);
 | taskID | 线程id  |
 | retval | 线程taskID结束后的返回值 |
 
-## LOS_TaskDelete()
+### LOS_TaskDelete()
 
 ```c
 UINT32 LOS_TaskDelete(UINT32 taskID);
@@ -111,7 +113,7 @@ UINT32 LOS_TaskDelete(UINT32 taskID);
 |:--|:------|
 | taskID | 线程id  |
 
-## LOS_TaskLock()
+### LOS_TaskLock()
 ```c
 VOID LOS_TaskLock(VOID);
 ```
@@ -120,7 +122,7 @@ VOID LOS_TaskLock(VOID);
 锁任务调度。在任务调度被锁的状态下，不能调用LOS_TaskSuspend，LOS_TaskDelay
 
 
-## LOS_TaskUnlock()
+### LOS_TaskUnlock()
 ```c
 UINT32 LOS_TaskUnlock(VOID);
 ```
