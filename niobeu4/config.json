@@ -91,7 +91,7 @@
             "huks_use_hardware_root_key = true",
             "huks_config_file = \"hks_config_lite.h\"",
             "huks_key_store_path = \"storage\"",
-            "ohos_security_huks_mbedtls_porting_path = \"//device/board/openvalley/niobeu4/liteos_m/hals/mbedtls\""
+            "ohos_security_huks_mbedtls_porting_path = \"//device/board/openvalley/niobeu4/liteos_m/third_party_adapter/mbedtls\""
           ]
         }
       ]
