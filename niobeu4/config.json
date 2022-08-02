@@ -58,7 +58,7 @@
         {
           "component": "liteos_m",
           "features": [
-            "ohos_kernel_liteos_m_lwip_path = \"//device/board/openvalley/niobeu4/liteos_m/third_party_adapter/lwip\""
+            "ohos_kernel_liteos_m_lwip_path = \"//device/board/openvalley/niobeu4/liteos_m/third_party_adapter/lwip-2.1\""
           ]
         }
       ]
