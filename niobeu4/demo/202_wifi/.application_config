@@ -14,3 +14,4 @@
 
 config NIOBEU4_APPLICATION_202
     bool "202_wifi"
+    select NET_LWIP 
