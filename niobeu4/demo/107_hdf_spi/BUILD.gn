@@ -18,6 +18,7 @@ module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name){
     sources = [
         "spi_example.c",
+        "st7735s.c",
     ]
     include_dirs = [
         "//drivers/hdf_core/framework/include/platform/",
