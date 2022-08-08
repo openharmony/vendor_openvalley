@@ -15,7 +15,7 @@
 
 本例程位于`vendor/openvalley/niobeu4/demo/201_bluetooth`文件夹下。
 
-```c
+```
 #define REMOTE_SERVICE_UUID        0x00FF //定义远端蓝牙设备UUID
 #define REMOTE_NOTIFY_CHAR_UUID    0xFF01 //定义远端蓝牙读写UUID
 //应用配置文件
@@ -76,7 +76,7 @@ struct GattcProfileInst {
 
 此GattcProfileInst包括如下结构。
 
-```c
+```
 * ' gattc_cb ': GATT客户端回调函数
 * ' gattc_if ':该配置文件的GATT客户端接口编号
 * ' app_id ' :应用配置文件ID号
@@ -91,7 +91,7 @@ struct GattcProfileInst {
 
 程序的入口点是app_main_btc()函数。
 
-```c
+```
     EnableBle();//开启蓝牙
     BleGattcConfigureMtuSize(500);//设置MTU大小
     BtGattClientCallbacks btGattClientCallbacks = {
@@ -104,7 +104,7 @@ struct GattcProfileInst {
 
 应用Profile存储在' gl_profile_tab '数组中，初始化为OHOS_GATT_IF_NONE。
 
-```c
+```
 /* 一个基于gattc_if的配置文件，一个app_id和一个gattc_if，这个数组将存储OHOS_GATTS_REG_EVT返回的gattc_if */
 static struct GattcProfileInst gl_profile_tab[PROFILE_NUM] = {
     [PROFILE_A_APP_ID] = {
@@ -116,7 +116,7 @@ static struct GattcProfileInst gl_profile_tab[PROFILE_NUM] = {
 
 注册回调以后会触发一个`OHOS_GATTC_REG_EVT`事件，该事件由`gattc_cb()` 事件处理程序处理。处理程序接受事件返回的GATT接口，并将其存储在配置文件表中(gl_profile_tab)。
 
-```c
+```
 static void gattc_cb(GattcBleCallbackEvent event, GattInterfaceType gattc_if, BleGattcParam *param)
 {
     /* If event is register event, store the gattc_if for each profile */
@@ -136,7 +136,7 @@ static void gattc_cb(GattcBleCallbackEvent event, GattInterfaceType gattc_if, Bl
 
 最后，回调函数为` gl_profile_tab `表中的每个配置文件调用相应的事件处理程序。
 
-```c
+```
     /* If the gattc_if equal to profile A, call profile A cb handler,
      * so here call each profile's callback */
     do {
@@ -156,7 +156,7 @@ static void gattc_cb(GattcBleCallbackEvent event, GattInterfaceType gattc_if, Bl
 
 蓝牙扫描参数设置见`组件参数配置`，注册回调以后需要设置扫描参数。
 
-```c
+```
     case OHOS_GATTC_REG_EVT:
         BT_LOGE(GATTC_TAG, "REG_EVT");
         BtError scan_ret = BleGatSetScanParams(&ble_scan_params);
@@ -168,7 +168,7 @@ static void gattc_cb(GattcBleCallbackEvent event, GattInterfaceType gattc_if, Bl
 
 设置完扫描参数会有一个`OHOS_GAP_BLE_SCAN_PARAM_SET_COMPLETE_EVT`事件，在这里开启蓝牙扫描。
 
-```c
+```
     case OHOS_GAP_BLE_SCAN_PARAM_SET_COMPLETE_EVT: {
         BleStartScan();
         break;
@@ -177,7 +177,7 @@ static void gattc_cb(GattcBleCallbackEvent event, GattInterfaceType gattc_if, Bl
 
 扫描结果会在`OHOS_GAP_BLE_SCAN_RESULT_EVT`事件中，如果扫描到remote_device_name，停止扫描，发起连接。
 
-```c
+```
     case OHOS_GAP_BLE_SCAN_RESULT_EVT: {
         BleGapParam *scan_result = (BleGapParam *)param;
         switch (scan_result->scan_rst.search_evt) {
