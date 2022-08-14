@@ -43,7 +43,7 @@ osThreadId_t g_taskID = NULL;
 static int32_t GpioIrqCallback(uint16_t gpio, int data)
 {
     (void *)data;
-    HDF_LOGE("--->hdf gpio index %d intterrupt!!", gpio);
+    HDF_LOGE("--->hdf gpio index %d interrupt!!", gpio);
 }
 
 static void gpio_test(void)

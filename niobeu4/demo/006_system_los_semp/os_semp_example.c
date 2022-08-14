@@ -85,7 +85,7 @@ void Thread_Semp1(void)
 
 void Thread_Semp2(void)
 {
-    printf("entry Thread_Semp2 : try get semSync,timout 100 ticks!\n");
+    printf("entry Thread_Semp2 : try get semSync, timeout 100 ticks!\n");
     UINT32 ret = LOS_SemPend(semSync, DELAY_100_TICKS);
     if (ret == LOS_OK) {
         printf("Thread_Semp2 : got semSync.\n");
