@@ -141,7 +141,7 @@ static void OS_Event_example(void)
     UINT32 taskIDEventSender;
     if (LOS_TaskCreate(&taskIDEventSender,&attr)!=LOS_OK)
     {
-        printf("Falied to create Thread_EventSender!\n");
+        printf("Failed to create Thread_EventSender!\n");
         return;
     }
     
@@ -150,7 +150,7 @@ static void OS_Event_example(void)
     UINT32 taskIDEventRecvOR;
     if (LOS_TaskCreate(&taskIDEventRecvOR,&attr) != LOS_OK)
     {
-        printf("Falied to create Thread_EventReceiverOR!\n");
+        printf("Failed to create Thread_EventReceiverOR!\n");
         return;
     }
 
@@ -159,7 +159,7 @@ static void OS_Event_example(void)
     UINT32 taskIDEventRecvAND;
     if (osThreadNew(&taskIDEventRecvAND, &attr) != LOS_OK)
     {
-        printf("Falied to create Thread_EventReceiverAND!\n");
+        printf("Failed to create Thread_EventReceiverAND!\n");
         return;
     }
 

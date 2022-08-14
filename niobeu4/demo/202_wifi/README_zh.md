@@ -242,7 +242,7 @@ static void wifi_test_example(void)
     attr.priority = 25;
     wifi_test_id = osThreadNew((osThreadFunc_t)wifi_test, NULL, &attr);
     if (wifi_test_id == NULL){
-        printf("Falied to create wifi_test thread!\n");
+        printf("Failed to create wifi_test thread!\n");
     }
 }
 

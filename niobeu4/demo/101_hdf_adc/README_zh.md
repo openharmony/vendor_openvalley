@@ -103,7 +103,7 @@ static void adc_task()
     attr.priority = 25;
     g_taskID = osThreadNew((osThreadFunc_t)adc_test, NULL, &attr);
     if (g_taskID == NULL) {
-        HDF_LOGE("Falied to create Test ADC thread!\n");
+        HDF_LOGE("Failed to create Test ADC thread!\n");
     }
 }
 ```
