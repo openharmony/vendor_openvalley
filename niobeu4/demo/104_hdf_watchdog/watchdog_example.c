@@ -118,7 +118,7 @@ static void watchdog_example_task(void)
     attr.priority = TASK_PRIO;
     g_taskID = osThreadNew((osThreadFunc_t)watchdog_test, NULL, &attr);
     if (g_taskID == NULL) {
-        printf("Falied to create Test Watchdog thread!\r\n");
+        printf("Failed to create Test Watchdog thread!\r\n");
     }
 }
 
