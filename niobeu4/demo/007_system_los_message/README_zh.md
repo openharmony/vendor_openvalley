@@ -185,7 +185,7 @@ UINT32 ExampleQueue(VOID)
         printf("create queue failure, error: %x\n", ret);
     }
 
-    printf("create the queue succes.\n");
+    printf("create the queue success.\n");
     LOS_TaskUnlock();
     return ret;
 }
@@ -205,7 +205,7 @@ UINT32 ExampleQueue(VOID)
 示例代码编译烧录代码后，按下开发板的RESET按键，通过串口助手查看日志
 ```c
  start queue example.
- create the queue succes.
+ create the queue success.
  recv message: test message
  delete the queue success.
 ```
