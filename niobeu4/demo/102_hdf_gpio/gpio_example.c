@@ -87,7 +87,7 @@ static void gpio_example_task(void)
     attr.priority = TASK_PRIO;
     g_taskID = osThreadNew((osThreadFunc_t)gpio_test, NULL, &attr);
     if (g_taskID == NULL) {
-        HDF_LOGE("Falied to create Test GPIO thread!\n");
+        HDF_LOGE("Failed to create Test GPIO thread!\n");
     }
 }
 

@@ -371,7 +371,7 @@ void nfc_service(void)
 {
     gNfcIrqEvent = osEventFlagsNew(NULL); // 创建NFC中断事件
     if (gNfcIrqEvent == NULL) {
-        printf("Falied to create gNfcIrqEvent!\n");
+        printf("Failed to create gNfcIrqEvent!\n");
     }
 
     while (1) {
@@ -396,7 +396,7 @@ static void CreatTwNfcService(void)
     attr.stack_size = NFC_SERVICE_STACK_SIZE;
     attr.priority = NFC_SERVICE_TASK_PRI;
     if (osThreadNew((osThreadFunc_t)nfc_service, NULL, &attr) == NULL) {
-        printf("Falied to create nfc_detect_task!\n");
+        printf("Failed to create nfc_detect_task!\n");
     }
 }
 

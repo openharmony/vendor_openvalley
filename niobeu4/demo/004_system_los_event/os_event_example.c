@@ -83,21 +83,21 @@ static void OS_Event_example(void)
     attr.pcName = "Thread_EventSender";
     UINT32 taskIDEventSender;
     if (LOS_TaskCreate(&taskIDEventSender, &attr) != LOS_OK) {
-        printf("Falied to create Thread_EventSender!\n");
+        printf("Failed to create Thread_EventSender!\n");
         return;
     }
     attr.pcName = "Thread_EventReceiverOR";
     attr.pfnTaskEntry = (TSK_ENTRY_FUNC)OS_Thread_EventReceiverOR;
     UINT32 taskIDEventRecvOR;
     if (LOS_TaskCreate(&taskIDEventRecvOR, &attr) != LOS_OK) {
-        printf("Falied to create Thread_EventReceiverOR!\n");
+        printf("Failed to create Thread_EventReceiverOR!\n");
         return;
     }
     attr.pcName = "Thread_EventReceiverAND";
     attr.pfnTaskEntry = (TSK_ENTRY_FUNC)OS_Thread_EventReceiverAND;
     UINT32 taskIDEventRecvAND;
     if (LOS_TaskCreate(&taskIDEventRecvAND, &attr) != LOS_OK) {
-        printf("Falied to create Thread_EventReceiverAND!\n");
+        printf("Failed to create Thread_EventReceiverAND!\n");
         return;
     }
 
