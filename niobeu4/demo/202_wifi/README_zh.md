@@ -43,7 +43,7 @@ int32_t GetScanInfoList(WifiScanInfo* result, unsigned int* size)
 
 **描述：**
 
-wifi getScanInfoListt获取扫描列表函数。
+wifi GetScanInfoList获取扫描列表函数。
 
 **参数：**
 
@@ -60,7 +60,7 @@ int32_t AddDeviceConfig(const WifiDeviceConfig* config, int* result)
 
 **描述：**
 
-wifi getScanInfoListt获取扫描列表函数。
+wifi GetScanInfoList获取扫描列表函数。
 
 **参数：**
 

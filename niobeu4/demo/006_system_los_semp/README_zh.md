@@ -166,7 +166,7 @@ void Thread_Semp1(void)
 
 void Thread_Semp2(void)
 {
-    printf("entry Thread_Semp2 : try get semSync,timout 100 ticks!\n");
+    printf("entry Thread_Semp2 : try get semSync, timeout 100 ticks!\n");
     osStatus_t ret = osSemaphoreAcquire(semSync, 100);
     if(ret == osOK)
     {
@@ -267,7 +267,7 @@ OHOS_APP_RUN(semp_example);
 
 示例代码编译烧录代码后，按下开发板的RESET按键，通过串口助手查看日志
 ```c
-entry Thread_Semp2 : try get semSync,timout 100 ticks!
+entry Thread_Semp2 : try get semSync, timeout 100 ticks!
 Thread_Semp2: failed to get semSync! and try get semSync wait forever.
 Thread_Semp1 Release semSync.
 Thread_Semp2: wait_forever and get semSync.

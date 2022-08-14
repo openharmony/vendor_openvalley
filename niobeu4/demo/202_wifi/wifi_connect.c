@@ -43,7 +43,7 @@ int addr_length;
 const int timeZone = 8;
 
 static void WiFiInit(void);
-static void WaitSacnResult(void);
+static void WaitScanResult(void);
 static int WaitConnectResult(void);
 static void OnWifiScanStateChangedHandler(int state, int size);
 static void OnWifiConnectionChangedHandler(int state, WifiLinkedInfo *info);
@@ -129,7 +129,7 @@ int WifiConnect(const char *ssid, const char *psk)
         ssid_count = 0;
         g_staScanSuccess = 0;
         Scan();
-        WaitSacnResult();
+        WaitScanResult();
         wifi_error = GetScanInfoList(info, &size);
     } while (g_staScanSuccess != 1);
     strcpy_s(select_ap_config.ssid, sizeof(select_ap_config.ssid), ssid);
@@ -178,18 +178,18 @@ static void OnWifiConnectionChangedHandler(int state, WifiLinkedInfo *info)
     return;
 }
 
-static void WaitSacnResult(void)
+static void WaitScanResult(void)
 {
     int scanTimeout = DEF_TIMEOUT;
     while (scanTimeout > 0) {
         sleep(ONE_SECOND);
         scanTimeout--;
         if (g_staScanSuccess == 1) {
-            printf("WaitSacnResult:wait success[%d]s\n", (DEF_TIMEOUT - scanTimeout));
+            printf("WaitScanResult:wait success[%d]s\n", (DEF_TIMEOUT - scanTimeout));
             break;
         }
     }
     if (scanTimeout <= 0) {
-        printf("WaitSacnResult:timeout!\n");
+        printf("WaitScanResult:timeout!\n");
     }
 }
