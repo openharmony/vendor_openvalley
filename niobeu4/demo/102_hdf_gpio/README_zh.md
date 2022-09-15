@@ -164,5 +164,5 @@ gpio_config {
 }
 ```
 
-其中gpio_num_t、gpio_pull_mode_t以及gpio_drive_cap_t详细定义参考[device_soc_esp](https://gitee.com/openharmony-sig/device_soc_esp)仓库gpio_types.h代码
+其中gpio_num_t、gpio_pull_mode_t以及gpio_drive_cap_t详细定义参考[device_soc_esp](https://gitee.com/openharmony/device_soc_esp)仓库gpio_types.h代码
 
