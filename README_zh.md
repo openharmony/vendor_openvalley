@@ -25,7 +25,7 @@ vendor/openvalley/
 
 ## 使用说明
 
-参考[device_board_openvalley](https://gitee.com/openharmony-sig/device_board_openvalley/blob/master/niobeu4/README_zh.md) 仓库下链接使用。
+参考[device_board_openvalley](https://gitee.com/openharmony/device_board_openvalley/blob/master/niobeu4/README_zh.md) 仓库下链接使用。
 
 
 ## 示例展示
