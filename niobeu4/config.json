@@ -57,7 +57,7 @@
       "components": [
         { "component": "file", "features": [] },
         { "component": "timer_task", "features": [] },
-        { "component": "kal_timer", "features": ["config_ohos_distributedschedule_samgr_lite_shared_task_size = 4096"] }
+        { "component": "kal_timer", "features": [] }
       ]
     },
     {
