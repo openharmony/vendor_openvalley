@@ -29,8 +29,8 @@
 |名字|描述|
 |:--|:------|
 | interval | 要创建的软件计时器的定时时长，单位ms |
-| mode | 定时器类型,课参考EnSwTmrType，包括单次定时器、周期性定时器以及单次定时器但不删除定时器三种类型.  |
-| handler | 函数指针指向回调函数.  |
+| mode | 定时器类型,课参考EnSwTmrType，包括单次定时器、周期性定时器以及单次定时器但不删除定时器三种类型  |
+| handler | 函数指针指向回调函数  |
 | swtmrID | 定时器ID |
 | argument |定时器回调函数的参数|
 | arg |回调函数handler的入参|
@@ -39,7 +39,6 @@
 
 ```c
  UINT32 LOS_SwtmrStart(UINT32 swtmrID);
-
 ```
 **描述：**
 
@@ -52,13 +51,12 @@
 
 |名字|描述|
 |:--|:------|
-| swtmrID | 由osTimerNew获得的计时器ID.  |
+| swtmrID | 由osTimerNew获得的计时器ID  |
 
 ### LOS_SwtmrStop()
 
 ```c
  UINT32 LOS_SwtmrStop(UINT32 swtmrID);
-
 ```
 **描述：**
 
@@ -68,13 +66,12 @@
 
 |名字|描述|
 |:--|:------|
-| swtmrID | 由LOS_SwtmrCreate获得的计时器ID.  |
+| swtmrID | 由LOS_SwtmrCreate获得的计时器ID  |
 
 ### LOS_SwtmrDelete()
 
 ```c
  UINT32 LOS_SwtmrDelete(UINT32 swtmrID);
-
 ```
 **描述：**
 
@@ -84,7 +81,7 @@
 
 |名字|描述|
 |:--|:------|
-| swtmrID | 由LOS_SwtmrCreate获得的计时器ID.  |
+| swtmrID | 由LOS_SwtmrCreate获得的计时器ID  |
 
 ## 软件设计
 
@@ -92,7 +89,7 @@
 
 创建一个单次定时器timerId1,设置定时时长为1000，启动timerId1，记录当前系统tickCount，而后暂停定时器timerId1，
 延期1000ticks后，可见timerId1并为被触发。再启动timerId1，在过去timerId1所剩的ticks数后，timerId1被触发。
-创建一个周期性定时器timerId2，设置定时时长为100ticks，启动timerId2，可通过串口日志每隔100ticks触发timerId2.
+创建一个周期性定时器timerId2，设置定时时长为100ticks，启动timerId2，可通过串口日志每隔100ticks触发timerId2。
 
 ```c
 UINT32 g_timerCount1 = 0;   

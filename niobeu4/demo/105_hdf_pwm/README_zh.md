@@ -6,7 +6,7 @@
 ### PwmOpen()
 
 ```
-DevHandle PwmOpen(uint32_t num)
+DevHandle PwmOpen(uint32_t num);
 ```
 
 **描述：**
@@ -22,7 +22,7 @@ pwm Open打开pwm函数。
 ### PwmSetConfig()
 
 ```
-int32_t PwmSetConfig(DevHandle handle, struct PwmConfig *config)
+int32_t PwmSetConfig(DevHandle handle, struct PwmConfig *config);
 ```
 
 **描述：**
@@ -39,7 +39,7 @@ pwm setConfig设置PWM设备的配置参数函数。
 ### PwmSetDuty()
 
 ```
-int32_t PwmSetDuty(DevHandle handle, uint32_t duty)
+int32_t PwmSetDuty(DevHandle handle, uint32_t duty);
 ```
 
 **描述：**
