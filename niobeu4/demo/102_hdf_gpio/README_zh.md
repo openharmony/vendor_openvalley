@@ -11,7 +11,7 @@
 ### GpioWrite()
 
 ```
-int32_t GpioWrite(uint16_t gpio, uint16_t val)
+int32_t GpioWrite(uint16_t gpio, uint16_t val);
 ```
 
 **描述：**
@@ -28,7 +28,7 @@ int32_t GpioWrite(uint16_t gpio, uint16_t val)
 ### GpioRead()
 
 ```
-int32_t GpioRead(uint16_t gpio, uint16_t *val)
+int32_t GpioRead(uint16_t gpio, uint16_t *val);
 ```
 
 **描述：**
@@ -45,7 +45,7 @@ int32_t GpioRead(uint16_t gpio, uint16_t *val)
 ### GpioSetDir()
 
 ```
-int32_t GpioRead(uint16_t gpio, uint16_t *val)
+int32_t GpioRead(uint16_t gpio, uint16_t *val);
 ```
 
 **描述：**
@@ -62,7 +62,7 @@ int32_t GpioRead(uint16_t gpio, uint16_t *val)
 ### GpioSetIrq()
 
 ```
-int32_t GpioSetIrq(uint16_t gpio, uint16_t mode, GpioIrqFunc func, void *arg)
+int32_t GpioSetIrq(uint16_t gpio, uint16_t mode, GpioIrqFunc func, void *arg);
 ```
 
 **描述：**
@@ -81,7 +81,7 @@ int32_t GpioSetIrq(uint16_t gpio, uint16_t mode, GpioIrqFunc func, void *arg)
 ### GpioEnableIrq()
 
 ```
-int32_t GpioEnableIrq(uint16_t gpio)
+int32_t GpioEnableIrq(uint16_t gpio);
 ```
 
 **描述：**
@@ -97,7 +97,7 @@ int32_t GpioEnableIrq(uint16_t gpio)
 ### GpioUnsetIrq()
 
 ```
-int32_t GpioUnsetIrq(uint16_t gpio, void *arg)
+int32_t GpioUnsetIrq(uint16_t gpio, void *arg);
 ```
 
 **描述：**
