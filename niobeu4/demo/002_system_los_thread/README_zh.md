@@ -20,7 +20,7 @@ typedef struct tagTskInitParam {
 **描述：**
 |名字|描述|
 |:--|:------|
-| pfnTaskEntry | 新建线程的函数入口.  |
+| pfnTaskEntry | 新建线程的函数入口  |
 | usTaskPrio |线程优先级，0-31|
 | uwArg | 线程函数传参 |
 | stackAddr | 堆栈起始地址 |
@@ -32,7 +32,7 @@ typedef struct tagTskInitParam {
 ### LOS_TaskCreate()
 
 ```c
-UINT32 LOS_TaskCreate(UINT32 *taskID, TSK_INIT_PARAM_S *taskInitParam)
+UINT32 LOS_TaskCreate(UINT32 *taskID, TSK_INIT_PARAM_S *taskInitParam);
 ```
 **描述：**
 
@@ -45,7 +45,7 @@ UINT32 LOS_TaskCreate(UINT32 *taskID, TSK_INIT_PARAM_S *taskInitParam)
 
 |名字|描述|
 |:--|:------|
-| taskID | 指针，指向线程id.  |
+| taskID | 指针，指向线程id  |
 | taskInitParam |新建线程的相关属性以及线程的函数入口和参数等|
 
 ### LOS_TaskSuspend()
