@@ -23,7 +23,7 @@ UINT32 LOS_QueueCreate(const CHAR *queueName,
 
 |名字|描述|
 |:--|:------|
-| queueName | 消息队列名称，暂时未使用.  |
+| queueName | 消息队列名称，暂时未使用  |
 | len |消息队列长度，该值的范围：[1,0xffff]|
 | queueID |消息队列ID，属输出|
 | flags | 队列模式，暂未用，可传0 |

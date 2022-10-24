@@ -15,7 +15,7 @@ NSS（CS）： 从设备选择信号，由主设备控制。当NSS为低电平�
 ### SpiOpen()
 
 ```
-DevHandle SpiOpen(const struct SpiDevInfo *info)
+DevHandle SpiOpen(const struct SpiDevInfo *info);
 ```
 
 **描述：**
@@ -31,7 +31,7 @@ spi open获取SPI设备的句柄。
 ### SpiTransfer()
 
 ```
-int32_t SpiTransfer(DevHandle handle, struct SpiMsg *msgs, uint32_t count)
+int32_t SpiTransfer(DevHandle handle, struct SpiMsg *msgs, uint32_t count);
 ```
 
 **描述：**
@@ -49,7 +49,7 @@ int32_t SpiTransfer(DevHandle handle, struct SpiMsg *msgs, uint32_t count)
 ### SpiClose()
 
 ```
-void SpiClose(DevHandle handle)
+void SpiClose(DevHandle handle);
 ```
 
 **描述：**

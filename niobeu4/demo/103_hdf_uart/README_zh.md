@@ -9,7 +9,7 @@ UART是通用异步收发传输器（Universal Asynchronous Receiver/Transmitter
 ### UartOpen()
 
 ```
-DevHandle UartOpen(uint32_t port)
+DevHandle UartOpen(uint32_t port);
 ```
 
 **描述：**
@@ -25,7 +25,7 @@ uart open初始化函数。
 ### UartRead()
 
 ```
-int32_t UartRead(DevHandle handle, uint8_t *data, uint32_t size)
+int32_t UartRead(DevHandle handle, uint8_t *data, uint32_t size);
 ```
 
 **描述：**
@@ -43,7 +43,7 @@ uart read读数据函数。
 ### UartWrite()
 
 ```
-int32_t UartWrite(DevHandle handle, uint8_t *data, uint32_t size)
+int32_t UartWrite(DevHandle handle, uint8_t *data, uint32_t size);
 ```
 
 **描述：**
@@ -61,7 +61,7 @@ uartwrite写数据函数。
 ### UartGetBaud()
 
 ```
-int32_t UartGetBaud(DevHandle handle, uint32_t *baudRate)
+int32_t UartGetBaud(DevHandle handle, uint32_t *baudRate);
 ```
 
 **描述：**
@@ -78,7 +78,7 @@ uart getBaud获取波特率函数。
 ### UartSetAttribute()
 
 ```
-int32_t UartSetAttribute(DevHandle handle, struct UartAttribute *attribute)
+int32_t UartSetAttribute(DevHandle handle, struct UartAttribute *attribute);
 ```
 
 **描述：**
@@ -95,7 +95,7 @@ uart setTransMode设置UART属性函数。
 ### UartSetTransMode()
 
 ```
-int32_t UartSetTransMode(DevHandle handle, enum UartTransMode mode)
+int32_t UartSetTransMode(DevHandle handle, enum UartTransMode mode);
 ```
 
 **描述：**
@@ -112,7 +112,7 @@ uart setTransMode设置UART传输模式函数。
 
 ## HCS配置
 
-hcs配置文件在device/board/openvalley/niobeu4/liteos_m/hdf_config/hdf.hcs目录下，需要进行如下设置：
+hcs配置文件在`device/board/openvalley/niobeu4/liteos_m/hdf_config/hdf.hcs`目录下，需要进行如下设置：
 
     uart_config {
        template default_config {

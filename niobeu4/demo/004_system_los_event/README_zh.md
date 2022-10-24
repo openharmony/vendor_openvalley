@@ -36,7 +36,7 @@ UINT32 LOS_EventWrite(PEVENT_CB_S eventCB, UINT32 events);
 |名字|描述|
 |:--|:------|
 | eventCB | 事件控制块， 由调用LOS_EventInit初始化得到  |
-| events | 事件掩码指定的事件.  |
+| events | 事件掩码指定的事件  |
 
 ### LOS_EventRead()
 
@@ -56,8 +56,8 @@ UINT32 LOS_EventRead(PEVENT_CB_S eventCB, UINT32 eventMask, UINT32 mode, UINT32 
 |名字|描述|
 |:--|:------|
 | eventCB | 事件控制块， 由调用LOS_EventInit初始化得到 |
-| eventMask | 事件类型掩码.  |
-| mode | 指定标记选项. LOS_WAITMODE_AND：逻辑与  LOS_WAITMODE_OR：逻辑或  LOS_WAITMODE_CLR：这是一种附加读取模式，需要与所有事件模式或任一事件模式结合使用（LOS_WAITMODE_AND | LOS_WAITMODE_CLR或 LOS_WAITMODE_OR | LOS_WAITMODE_CLR）。在这种模式下，当设置的所有事件模式或任一事件模式读取成功后，会自动清除事件控制块中对应的事件类型位 |
+| eventMask | 事件类型掩码  |
+| mode | 指定标记选项LOS_WAITMODE_AND、逻辑与  LOS_WAITMODE_OR、逻辑或  LOS_WAITMODE_CLR，这是一种附加读取模式，需要与所有事件模式或任一事件模式结合使用 |
 | timeout | 超时时间，0表示不超时  |
 
 
@@ -165,7 +165,6 @@ static void OS_Event_example(void)
 
     LOS_TaskUnlock();
 }
-
 ```
 
 ## 编译调试

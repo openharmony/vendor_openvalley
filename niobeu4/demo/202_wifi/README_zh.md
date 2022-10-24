@@ -8,7 +8,7 @@ WLAN组件为设备提供接入与使用WLAN的相关接口，包括开启、关
 ### EnableWifi()
 
 ```
-WifiErrorCode EnableWifi(void)
+WifiErrorCode EnableWifi(void);
 ```
 
 **描述：**
@@ -18,7 +18,7 @@ Wifi enable打开wifi函数。
 ### DisableWifi()
 
 ```
-int32_t DisableWifi(void)
+int32_t DisableWifi(void);
 ```
 
 **描述：**
@@ -28,7 +28,7 @@ wifi disable关闭wifi函数。
 ### Scan()
 
 ```
-int32_t Scan(void)
+int32_t Scan(void);
 ```
 
 **描述：**
@@ -38,7 +38,7 @@ wifi scan扫描函数。
 ### GetScanInfoList()
 
 ```
-int32_t GetScanInfoList(WifiScanInfo* result, unsigned int* size)
+int32_t GetScanInfoList(WifiScanInfo* result, unsigned int* size);
 ```
 
 **描述：**
@@ -55,7 +55,7 @@ wifi GetScanInfoList获取扫描列表函数。
 ### AddDeviceConfig()
 
 ```
-int32_t AddDeviceConfig(const WifiDeviceConfig* config, int* result)
+int32_t AddDeviceConfig(const WifiDeviceConfig* config, int* result);
 ```
 
 **描述：**
@@ -72,7 +72,7 @@ wifi GetScanInfoList获取扫描列表函数。
 ### WiFiInit()
 
 ```
-void WiFiInit(void)
+void WiFiInit(void);
 ```
 
 **描述：**
