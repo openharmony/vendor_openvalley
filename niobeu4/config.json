@@ -26,9 +26,7 @@
       "components": [
         {
           "component": "samgr_lite",
-          "features": [
-            "config_ohos_systemabilitymgr_samgr_lite_shared_task_size = 4096"
-          ]
+          "features": []
         }
       ]
     },
@@ -37,6 +35,16 @@
       "components": [
         {
           "component": "bootstrap_lite",
+          "features": []
+        },
+        {
+          "component": "init_lite",
+          "features": [
+            "enable_ohos_startup_init_feature_begetctl_liteos = true"
+          ]
+        },
+        {
+          "component": "syspara_lite",
           "features": []
         }
       ]
@@ -102,25 +110,18 @@
         {
           "component": "xts_acts",
           "features": [
+            "config_ohos_xts_acts_utils_lite_kv_store_data_path = \"/openvalley\"",
+            "enable_ohos_test_xts_acts_use_thirdparty_lwip = false"
           ]
+        },
+        {
+          "component": "xts_tools",
+          "features": []
         }
       ]
     }
   ],
   "vendor_adapter_dir": "//device/board/openvalley/niobeu4/liteos_m",
   "third_party_dir": "//third_party",
-  "product_adapter_dir": "//vendor/openvalley/niobeu4/hals",
-  "ohos_product_type": "",
-  "ohos_manufacture": "",
-  "ohos_brand": "",
-  "ohos_market_name": "",
-  "ohos_product_series": "",
-  "ohos_product_model": "",
-  "ohos_software_model": "",
-  "ohos_hardware_model": "",
-  "ohos_hardware_profile": "",
-  "ohos_serial": "",
-  "ohos_bootloader_version": "",
-  "ohos_secure_patch_level": "",
-  "ohos_abi_list": ""
+  "product_adapter_dir": "//vendor/openvalley/niobeu4/hals"
 }
