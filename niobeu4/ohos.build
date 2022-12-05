@@ -3,7 +3,7 @@
   "parts": {
     "product_niobeu4": {
       "module_list": [
-        "//base/update/ota_lite/frameworks:ota_lite"
+        "//base/update/sys_installer_lite/frameworks:sys_installer_lite"
       ]
     }
   }
