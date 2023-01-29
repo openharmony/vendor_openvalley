@@ -20,8 +20,7 @@
 #include "lwip/ip_addr.h"
 #include "wifi_device.h"
 
-#define WIFI_NAME "HUAWEIP40"
-#define WIFI_PWD "houpengfei8"
+#define OPEN_WIFI_NAME "test"
 #define SERVER_IP	"192.168.8.140"
 #define SERVER_PORT 8080
 #define OD_DELAY_1000 1000
@@ -38,7 +37,7 @@ void wifi_test(void)
     struct sockaddr_in client_addr;
     char recv_data[512] = {0};
     int recv_data_len;
-    WifiConnect(WIFI_NAME, WIFI_PWD);
+    WifiConnect(OPEN_WIFI_NAME);
     printf("start wifi_test test\r\n");
     while (1) {
         sock = socket(AF_INET, SOCK_STREAM, 0);

@@ -27,7 +27,7 @@
 #define DEF_TIMEOUT 15
 #define ONE_SECOND 1
 #define SELECT_WLAN_PORT "wlan0"
-#define SELECT_WIFI_SECURITYTYPE WIFI_SEC_TYPE_PSK
+#define SELECT_WIFI_SECURITYTYPE WIFI_SEC_TYPE_OPEN
 #define STD_TIMEZONE_OFFSET (+8)
 #define OD_DELAY_100 100
 #define OD_DELAY_200 200
@@ -133,8 +133,7 @@ int WifiConnect(const char *ssid, const char *psk)
         wifi_error = GetScanInfoList(info, &size);
     } while (g_staScanSuccess != 1);
     strcpy_s(select_ap_config.ssid, sizeof(select_ap_config.ssid), ssid);
-    strcpy_s(select_ap_config.preSharedKey, sizeof(select_ap_config.preSharedKey), psk);
-    printf("%s %s \r\n", select_ap_config.ssid, select_ap_config.preSharedKey);
+    printf("[%s][%s] \r\n", select_ap_config.ssid, select_ap_config.preSharedKey);
     select_ap_config.securityType = SELECT_WIFI_SECURITYTYPE;
     if (AddDeviceConfig(&select_ap_config, &result) == WIFI_SUCCESS) {
         if (ConnectTo(result) == WIFI_SUCCESS && WaitConnectResult() == 1) {
