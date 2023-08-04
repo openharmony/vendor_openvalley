@@ -119,7 +119,7 @@
           ]
         },
         {
-          "component": "xts_tools",
+          "component": "tools",
           "features": []
         }
       ]
