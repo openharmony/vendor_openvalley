@@ -1,0 +1,46 @@
+# Copyright (c) 2022 Hunan OpenValley Digital Industry Development Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//kernel/liteos_m/liteos.gni")
+
+module_name = get_path_info(rebase_path("."), "name")
+kernel_module(module_name) {
+  sources = [
+    "framework/device_control/ble/multi_device_location_ble_control.c",
+    "framework/multi_device_location_impl.c",
+    "framework/network/package_request_data.c",
+    "framework/test.c",
+  ]
+  include_dirs = [
+    "interface/",
+    "framework/utils/",
+    "framework/device_control/ble",
+    "//device/soc/espressif/components/bt/include/esp32/include",
+    "//device/board/openvalley/niobeu4/components/bluetooth/interfaces/innerkits",
+    "//foundation/communication/bluetooth/interfaces/inner_api/include/c_header",
+
+    #"/foundation/communication/wifi_lite/interfaces/wifiservice/",
+    "//device/soc/espressif/components/bt/host/bluedroid/api/include/api",
+    "//third_party/HTTPClient/include/",
+
+    #"/device/soc/espressif/components/bt/include/esp32/include",
+    "//third_party/cJSON",
+    "//third_party/bounds_checking_function/include",
+  ]
+
+  deps = [
+    "//build/lite/config/component/cJSON:cjson_static",
+    "//third_party/HTTPClient:httpclient_lib",
+    "//third_party/bounds_checking_function:libsec_shared",
+  ]
+}
