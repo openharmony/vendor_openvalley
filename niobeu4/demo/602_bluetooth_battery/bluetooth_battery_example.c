@@ -95,7 +95,7 @@ static BleAdvParams adv_params = {
 static uint8_t get_fake_battery_level()
 {
     srand(time(NULL));
-    return rand() % 101;
+    return rand() % 0x65;
 }
 
 static void gatts_profile_a_event_handler(GattsBleCallbackEvent event, GattInterfaceType gatts_if, BleGattsParam *param)
@@ -107,7 +107,7 @@ static void gatts_profile_a_event_handler(GattsBleCallbackEvent event, GattInter
         BT_LOGE("REGISTER_APP_EVT, status %d, app_id %d\n", param->reg.status, param->reg.app_id);
         gl_profile_tab[PROFILE_A_APP_ID].service_id.is_primary = true;
         gl_profile_tab[PROFILE_A_APP_ID].service_id.id.inst_id = 0x00;
-        gl_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.len = 2;
+        gl_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.len = 0x02;
         gl_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.uuid.uuid16 = GATTS_SERVICE_UUID_TEST_A;
         BtError ret = SetLocalName(TEST_DEVICE_NAME, sizeof(TEST_DEVICE_NAME));
         if(ret) {
@@ -150,7 +150,7 @@ static void gatts_profile_a_event_handler(GattsBleCallbackEvent event, GattInter
     case OHOS_GATTS_CREATE_EVT:
         BT_LOGE("CREATE_SERVICE_EVT, status %d,  service_handle %d\n", param->create.status, param->create.service_handle);
         gl_profile_tab[PROFILE_A_APP_ID].service_handle = param->create.service_handle;
-        gl_profile_tab[PROFILE_A_APP_ID].char_uuid.len = 2;
+        gl_profile_tab[PROFILE_A_APP_ID].char_uuid.len = 0x02;
         gl_profile_tab[PROFILE_A_APP_ID].char_uuid.uuid.uuid16 = GATTS_CHAR_UUID_TEST_A;
 
         BleGattsStartService(gl_profile_tab[PROFILE_A_APP_ID].conn_id, gl_profile_tab[PROFILE_A_APP_ID].service_handle);
@@ -172,7 +172,7 @@ static void gatts_profile_a_event_handler(GattsBleCallbackEvent event, GattInter
         BT_LOGE("ADD_CHAR_EVT, status %d,  attr_handle %d, service_handle %d\n",
                  param->add_char.status, param->add_char.attr_handle, param->add_char.service_handle);
         gl_profile_tab[PROFILE_A_APP_ID].char_handle = param->add_char.attr_handle;
-        gl_profile_tab[PROFILE_A_APP_ID].descr_uuid.len = 2;
+        gl_profile_tab[PROFILE_A_APP_ID].descr_uuid.len = 0x02;
         gl_profile_tab[PROFILE_A_APP_ID].descr_uuid.uuid.uuid16 = OHOS_GATT_UUID_CHAR_CLIENT_CONFIG;
         BtError get_attr_ret = BleGattsGetAttrValue(param->add_char.attr_handle, &length, &prf_char);
         if (get_attr_ret == BT_ERROR) {
