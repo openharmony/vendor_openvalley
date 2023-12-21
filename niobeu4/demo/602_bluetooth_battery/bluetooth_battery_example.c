@@ -31,9 +31,9 @@ static BleAttrValue gatts_demo_char1_val =
 
 static uint8_t adv_service_uuid128[32] = {
     /* LSB <--------------------------------------------------------------------------------> MSB */
-    //first uuid, 16bit, [12],[13] is the value
+    //first uuid, 16bit
     0xfb, 0x34, 0x9b, 0x5f, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00, 0xEE, 0x00, 0x00, 0x00,
-    //second uuid, 32bit, [12], [13], [14], [15] is the value
+    //second uuid, 32bit
     0xfb, 0x34, 0x9b, 0x5f, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00,
 };
 
@@ -93,8 +93,86 @@ static BleAdvParams adv_params = {
 
 static uint8_t get_fake_battery_level()
 {
-    srand(time(NULL));
-    return rand() % 0x65;
+    return 0x21;
+}
+
+static void gatts_reg_event(GattInterfaceType gatts_if, BleGattsParam* param)
+{
+    BT_LOGE("REGISTER_APP_EVT, status %d, app_id %d\n" , param->reg.status , param->reg.app_id);
+        gl_profile_tab[PROFILE_A_APP_ID].service_id.is_primary = true;
+        gl_profile_tab[PROFILE_A_APP_ID].service_id.id.inst_id = 0x00;
+        gl_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.len = 0x02;
+        gl_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.uuid.uuid16 = GATTS_SERVICE_UUID_TEST_A;
+        BtError ret = SetLocalName(TEST_DEVICE_NAME , sizeof(TEST_DEVICE_NAME));
+    if (ret) {
+        BT_LOGE("set device name failed. error code:%x\n", ret);
+    }
+
+    ret = BleGapConfigAdvData(&adv_data);
+    if (ret) {
+        BT_LOGE("config scan response data failed, error code = %x" , ret);
+    }
+    BleGattsCreateService(gatts_if , &gl_profile_tab[PROFILE_A_APP_ID].service_id , GATTS_NUM_HANDLE_TEST_A);
+}
+
+static void gatts_read_event(GattInterfaceType gatts_if, BleGattsParam* param)
+{
+    BT_LOGE("GATT_READ_EVT, conn_id %d, trans_id %d, handle %d\n" , param->read.conn_id , param->read.trans_id , param->read.handle);
+    BleGattRsp rsp;
+    memset(&rsp , 0 , sizeof(BleGattRsp));
+    rsp.attr_value.handle = param->read.handle;
+    rsp.attr_value.len = 1;
+    rsp.attr_value.value[0] = get_fake_battery_level();
+    BtError ret = BleGattsSendResponse(gatts_if, param->read.conn_id, param->read.trans_id,
+    OHOS_GATT_SUCCESS, &rsp);
+    if (ret) {
+        BT_LOGE("send response error code:%x\n", ret);
+    }
+}
+
+static void gatts_create_event(GattInterfaceType gatts_if, BleGattsParam* param)
+{
+    BT_LOGE("CREATE_SERVICE_EVT, status %d,  service_handle %d\n" , param->create.status , param->create.service_handle);
+    gl_profile_tab[PROFILE_A_APP_ID].service_handle = param->create.service_handle;
+    gl_profile_tab[PROFILE_A_APP_ID].char_uuid.len = 0x02;
+    gl_profile_tab[PROFILE_A_APP_ID].char_uuid.uuid.uuid16 = GATTS_CHAR_UUID_TEST_A;
+            
+    BleGattsStartService(gl_profile_tab[PROFILE_A_APP_ID].conn_id , gl_profile_tab[PROFILE_A_APP_ID].service_handle);
+    a_property = OHOS_GATT_CHARACTER_PROPERTY_BIT_READ | OHOS_GATT_CHARACTER_PROPERTY_BIT_WRITE | OHOS_GATT_CHARACTER_PROPERTY_BIT_NOTIFY;
+    BtError add_char_ret = BleGattsAddChar(gl_profile_tab[PROFILE_A_APP_ID].service_handle, &gl_profile_tab[PROFILE_A_APP_ID].char_uuid,
+        OHOS_GATT_PERMISSION_READ | OHOS_GATT_PERMISSION_WRITE,
+        a_property,
+        &gatts_demo_char1_val, NULL);
+    if (add_char_ret) {
+        BT_LOGE("add char failed, error code =%x", add_char_ret);
+    }
+}
+
+static void gatts_add_char_event(GattInterfaceType gatts_if, BleGattsParam* param)
+{
+    uint16_t length = 0;
+    const uint8_t* prf_char;
+
+    BT_LOGE("ADD_CHAR_EVT, status %d,  attr_handle %d, service_handle %d\n" ,
+    param->add_char.status , param->add_char.attr_handle , param->add_char.service_handle);
+    gl_profile_tab[PROFILE_A_APP_ID].char_handle = param->add_char.attr_handle;
+    gl_profile_tab[PROFILE_A_APP_ID].descr_uuid.len = 0x02;
+    gl_profile_tab[PROFILE_A_APP_ID].descr_uuid.uuid.uuid16 = OHOS_GATT_UUID_CHAR_CLIENT_CONFIG;
+    BtError get_attr_ret = BleGattsGetAttrValue(param->add_char.attr_handle, &length, &prf_char);
+    if (get_attr_ret == BT_ERROR) {
+        BT_LOGE("ILLEGAL HANDLE");
+    }
+
+    BT_LOGE("the gatts demo char length = %x\n" , length);
+    for (int i = 0; i < length; i++) {
+        BT_LOGE("prf_char[%x] =%x\n" , i , prf_char[i]);
+    }
+    BtError add_descr_ret = BleGattsAddCharDescr(gl_profile_tab[PROFILE_A_APP_ID].service_handle,
+        &gl_profile_tab[PROFILE_A_APP_ID].descr_uuid,
+        OHOS_GATT_PERMISSION_READ | OHOS_GATT_PERMISSION_WRITE, NULL, NULL);
+    if (add_descr_ret) {
+        BT_LOGE("add char descr failed, error code =%x" , add_descr_ret);
+    }
 }
 
 static void gatts_profile_a_event_handler(GattsBleCallbackEvent event,
@@ -104,90 +182,29 @@ static void gatts_profile_a_event_handler(GattsBleCallbackEvent event,
     switch (event)
     {
         case OHOS_GATTS_REG_EVT:
-            BT_LOGE("REGISTER_APP_EVT, status %d, app_id %d\n" , param->reg.status , param->reg.app_id);
-            gl_profile_tab[PROFILE_A_APP_ID].service_id.is_primary = true;
-            gl_profile_tab[PROFILE_A_APP_ID].service_id.id.inst_id = 0x00;
-            gl_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.len = 0x02;
-            gl_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.uuid.uuid16 = GATTS_SERVICE_UUID_TEST_A;
-            BtError ret = SetLocalName(TEST_DEVICE_NAME , sizeof(TEST_DEVICE_NAME));
-            if (ret) {
-                BT_LOGE("set device name failed. error code:%x\n", ret);
-            }
-
-            ret = BleGapConfigAdvData(&adv_data);
-            if (ret) {
-                BT_LOGE("config scan response data failed, error code = %x" , ret);
-            }
-            BleGattsCreateService(gatts_if , &gl_profile_tab[PROFILE_A_APP_ID].service_id , GATTS_NUM_HANDLE_TEST_A);
+            gatts_reg_event(gatts_if, param);
             break;
-        case OHOS_GATTS_READ_EVT: {
-            BT_LOGE("GATT_READ_EVT, conn_id %d, trans_id %d, handle %d\n" , param->read.conn_id , param->read.trans_id , param->read.handle);
-            BleGattRsp rsp;
-            memset(&rsp , 0 , sizeof(BleGattRsp));
-            rsp.attr_value.handle = param->read.handle;
-            rsp.attr_value.len = 1;
-            rsp.attr_value.value[0] = get_fake_battery_level();
-            BtError ret = BleGattsSendResponse(gatts_if, param->read.conn_id, param->read.trans_id,
-                OHOS_GATT_SUCCESS, &rsp);
-            if (ret) {
-                BT_LOGE("send response error code:%x\n" , ret);
-            }
+        case OHOS_GATTS_READ_EVT:
+            gatts_read_event(gatts_if, param);
             break;
-            }
         case OHOS_GATTS_WRITE_EVT:
             BT_LOGE("GATT_WRITE_EVT, conn_id %d, trans_id %d, handle %d", param->write.conn_id, param->write.trans_id, param->write.handle);
             break;
-
         case OHOS_GATTS_EXEC_WRITE_EVT:
             BleGattsSendResponse(gatts_if , param->write.conn_id , param->write.trans_id , OHOS_GATT_SUCCESS , NULL);
             break;
         case OHOS_GATTS_MTU_EVT:
             BT_LOGE("OHOS_GATTS_MTU_EVT, MTU %d" , param->mtu.mtu);
-
             break;
         case OHOS_GATTS_UNREG_EVT:
             break;
         case OHOS_GATTS_CREATE_EVT:
-            BT_LOGE("CREATE_SERVICE_EVT, status %d,  service_handle %d\n" , param->create.status , param->create.service_handle);
-            gl_profile_tab[PROFILE_A_APP_ID].service_handle = param->create.service_handle;
-            gl_profile_tab[PROFILE_A_APP_ID].char_uuid.len = 0x02;
-            gl_profile_tab[PROFILE_A_APP_ID].char_uuid.uuid.uuid16 = GATTS_CHAR_UUID_TEST_A;
-
-            BleGattsStartService(gl_profile_tab[PROFILE_A_APP_ID].conn_id , gl_profile_tab[PROFILE_A_APP_ID].service_handle);
-                a_property = OHOS_GATT_CHARACTER_PROPERTY_BIT_READ | OHOS_GATT_CHARACTER_PROPERTY_BIT_WRITE | OHOS_GATT_CHARACTER_PROPERTY_BIT_NOTIFY;
-            BtError add_char_ret = BleGattsAddChar(gl_profile_tab[PROFILE_A_APP_ID].service_handle , &gl_profile_tab[PROFILE_A_APP_ID].char_uuid ,
-                OHOS_GATT_PERMISSION_READ | OHOS_GATT_PERMISSION_WRITE ,
-                a_property ,
-                &gatts_demo_char1_val , NULL);
-            if (add_char_ret) {
-                BT_LOGE("add char failed, error code =%x", add_char_ret);
-            }
+            gatts_create_event(gatts_if, param);
             break;
         case OHOS_GATTS_ADD_INCL_SRVC_EVT:
             break;
         case OHOS_GATTS_ADD_CHAR_EVT: {
-            uint16_t length = 0;
-            const uint8_t* prf_char;
-
-            BT_LOGE("ADD_CHAR_EVT, status %d,  attr_handle %d, service_handle %d\n" ,
-                param->add_char.status , param->add_char.attr_handle , param->add_char.service_handle);
-            gl_profile_tab[PROFILE_A_APP_ID].char_handle = param->add_char.attr_handle;
-            gl_profile_tab[PROFILE_A_APP_ID].descr_uuid.len = 0x02;
-            gl_profile_tab[PROFILE_A_APP_ID].descr_uuid.uuid.uuid16 = OHOS_GATT_UUID_CHAR_CLIENT_CONFIG;
-            BtError get_attr_ret = BleGattsGetAttrValue(param->add_char.attr_handle, &length, &prf_char);
-            if (get_attr_ret == BT_ERROR) {
-                BT_LOGE("ILLEGAL HANDLE");
-            }
-
-            BT_LOGE("the gatts demo char length = %x\n" , length);
-            for (int i = 0; i < length; i++) {
-                BT_LOGE("prf_char[%x] =%x\n" , i , prf_char[i]);
-            }
-            BtError add_descr_ret = BleGattsAddCharDescr(gl_profile_tab[PROFILE_A_APP_ID].service_handle , &gl_profile_tab[PROFILE_A_APP_ID].descr_uuid ,
-                OHOS_GATT_PERMISSION_READ | OHOS_GATT_PERMISSION_WRITE , NULL , NULL);
-            if (add_descr_ret) {
-                BT_LOGE("add char descr failed, error code =%x" , add_descr_ret);
-            }
+            gatts_add_char_event(gatts_if, param);
             break;
         }
         case OHOS_GATTS_ADD_CHAR_DESCR_EVT:
@@ -231,8 +248,7 @@ static void gatts_event_handler(GattsBleCallbackEvent event , GattInterfaceType 
     if (event == OHOS_GATTS_REG_EVT) {
         if (param->reg.status == OHOS_GATT_SUCCESS) {
             gl_profile_tab[param->reg.app_id].gatts_if = gatts_if;
-        }
-        else {
+        } else {
             BT_LOGE("Reg app failed, app_id %04x, status %d\n",
                 param->reg.app_id,
                 param->reg.status);
@@ -258,38 +274,37 @@ static void gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t* param)
 {
     BT_LOGE("gap_cb event:%d\n" , event);
     switch (event) {
-    case OHOS_GAP_BLE_ADV_DATA_SET_COMPLETE_EVT:
-        BleGattsStartAdvertising(&adv_params);
-        break;
-    case OHOS_GAP_BLE_ADV_START_COMPLETE_EVT:
-        //adv start complete event to indicate adv start successfully or failed
-        if (param->adv_start_cmpl.status != ESP_BT_STATUS_SUCCESS) {
-            BT_LOGE("adv start failed! \n");
-        }
-        break;
-    case ESP_GAP_BLE_ADV_STOP_COMPLETE_EVT:
-        if (param->adv_stop_cmpl.status != ESP_BT_STATUS_SUCCESS) {
-            BT_LOGE("adv stop failed! \n");
-        }
-        else {
-            BT_LOGE("adv stop successed!\n");
-        }
-        break;
-    case OHOS_GAP_BLE_UPDATE_CONN_PARAMS_EVT:
-        BT_LOGE("update connection params status = %d, min_int = %d, max_int = %d,
-            conn_int = %d,latency = %d, timeout = %d",
-            param->update_conn_params.status,
-            param->update_conn_params.min_int,
-            param->update_conn_params.max_int,
-            param->update_conn_params.conn_int,
-            param->update_conn_params.latency,
-            param->update_conn_params.timeout);
-        break;
-    case OHOS_GAP_BLE_SCAN_RSP_DATA_SET_COMPLETE_EVT:
-        BleGattsStartAdvertising(&adv_params);
-        break;
-    default:
-        break;
+        case OHOS_GAP_BLE_ADV_DATA_SET_COMPLETE_EVT:
+            BleGattsStartAdvertising(&adv_params);
+            break;
+        case OHOS_GAP_BLE_ADV_START_COMPLETE_EVT:
+            //adv start complete event to indicate adv start successfully or failed
+            if (param->adv_start_cmpl.status != ESP_BT_STATUS_SUCCESS) {
+                BT_LOGE("adv start failed! \n");
+            }
+            break;
+        case ESP_GAP_BLE_ADV_STOP_COMPLETE_EVT:
+            if (param->adv_stop_cmpl.status != ESP_BT_STATUS_SUCCESS) {
+                BT_LOGE("adv stop failed! \n");
+            } else {
+                BT_LOGE("adv stop successed!\n");
+            }
+            break;
+        case OHOS_GAP_BLE_UPDATE_CONN_PARAMS_EVT:
+            BT_LOGE("update connection params status = %d, min_int = %d",
+                param->update_conn_params.status,
+                param->update_conn_params.min_int);
+            BT_LOGE("max_int = %d, conn_int = %d,latency = %d, timeout = %d",    
+                param->update_conn_params.max_int,
+                param->update_conn_params.conn_int,
+                param->update_conn_params.latency,
+                param->update_conn_params.timeout);
+            break;
+        case OHOS_GAP_BLE_SCAN_RSP_DATA_SET_COMPLETE_EVT:
+            BleGattsStartAdvertising(&adv_params);
+            break;
+        default:
+            break;
     }
 }
 
