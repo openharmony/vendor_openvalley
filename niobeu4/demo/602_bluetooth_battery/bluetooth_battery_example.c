@@ -74,7 +74,7 @@ static void gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t* param);
 static void gatts_profile_a_event_handler(GattsBleCallbackEvent event,
     GattInterfaceType gatts_if, BleGattsParam* param);
 /* 基于gatt的配置文件 */
-static struct GattsProfileInst g_profile_tab[PROFILE_NUM] = {
+static struct GattsProfileInst g_profileTab[PROFILE_NUM] = {
     [PROFILE_A_APP_ID] = {
         .gatts_cb = gatts_profile_a_event_handler,
         .gatts_if = OHOS_GATT_IF_NONE, /* 没有获得gatt_if，所以初始值是OHOS_GATT_IF_NONE */
@@ -98,10 +98,10 @@ static uint8_t get_fake_battery_level()
 static void gatts_reg_event(GattInterfaceType gatts_if, BleGattsParam* param)
 {
     BT_LOGE("REGISTER_APP_EVT, status %d, app_id %d\n", param->reg.status, param->reg.app_id);
-        g_profile_tab[PROFILE_A_APP_ID].service_id.is_primary = true;
-        g_profile_tab[PROFILE_A_APP_ID].service_id.id.inst_id = 0x00;
-        g_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.len = 0x02;
-        g_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.uuid.uuid16 = GATTS_SERVICE_UUID_TEST_A;
+        g_profileTab[PROFILE_A_APP_ID].service_id.is_primary = true;
+        g_profileTab[PROFILE_A_APP_ID].service_id.id.inst_id = 0x00;
+        g_profileTab[PROFILE_A_APP_ID].service_id.id.uuid.len = 0x02;
+        g_profileTab[PROFILE_A_APP_ID].service_id.id.uuid.uuid.uuid16 = GATTS_SERVICE_UUID_TEST_A;
         BtError ret = SetLocalName(TEST_DEVICE_NAME, sizeof(TEST_DEVICE_NAME));
     if (ret) {
         BT_LOGE("set device name failed. error code:%x\n", ret);
@@ -111,7 +111,7 @@ static void gatts_reg_event(GattInterfaceType gatts_if, BleGattsParam* param)
     if (ret) {
         BT_LOGE("config scan response data failed, error code = %x", ret);
     }
-    BleGattsCreateService(gatts_if, &g_profile_tab[PROFILE_A_APP_ID].service_id, GATTS_NUM_HANDLE_TEST_A);
+    BleGattsCreateService(gatts_if, &g_profileTab[PROFILE_A_APP_ID].service_id, GATTS_NUM_HANDLE_TEST_A);
 }
 
 static void gatts_read_event(GattInterfaceType gatts_if, BleGattsParam* param)
@@ -133,15 +133,15 @@ static void gatts_read_event(GattInterfaceType gatts_if, BleGattsParam* param)
 static void gatts_create_event(GattInterfaceType gatts_if, BleGattsParam* param)
 {
     BT_LOGE("CREATE_SERVICE_EVT, status %d, service_handle %d\n", param->create.status, param->create.service_handle);
-    g_profile_tab[PROFILE_A_APP_ID].service_handle = param->create.service_handle;
-    g_profile_tab[PROFILE_A_APP_ID].char_uuid.len = 0x02;
-    g_profile_tab[PROFILE_A_APP_ID].char_uuid.uuid.uuid16 = GATTS_CHAR_UUID_TEST_A;
+    g_profileTab[PROFILE_A_APP_ID].service_handle = param->create.service_handle;
+    g_profileTab[PROFILE_A_APP_ID].char_uuid.len = 0x02;
+    g_profileTab[PROFILE_A_APP_ID].char_uuid.uuid.uuid16 = GATTS_CHAR_UUID_TEST_A;
             
-    BleGattsStartService(g_profile_tab[PROFILE_A_APP_ID].conn_id, g_profile_tab[PROFILE_A_APP_ID].service_handle);
+    BleGattsStartService(g_profileTab[PROFILE_A_APP_ID].conn_id, g_profileTab[PROFILE_A_APP_ID].service_handle);
     a_property = OHOS_GATT_CHARACTER_PROPERTY_BIT_READ |
             OHOS_GATT_CHARACTER_PROPERTY_BIT_WRITE | OHOS_GATT_CHARACTER_PROPERTY_BIT_NOTIFY;
-    BtError add_char_ret = BleGattsAddChar(g_profile_tab[PROFILE_A_APP_ID].service_handle,
-        &g_profile_tab[PROFILE_A_APP_ID].char_uuid,
+    BtError add_char_ret = BleGattsAddChar(g_profileTab[PROFILE_A_APP_ID].service_handle,
+        &g_profileTab[PROFILE_A_APP_ID].char_uuid,
         OHOS_GATT_PERMISSION_READ | OHOS_GATT_PERMISSION_WRITE,
         a_property,
         &gatts_demo_char1_val, NULL);
@@ -157,9 +157,9 @@ static void gatts_add_char_event(GattInterfaceType gatts_if, BleGattsParam* para
 
     BT_LOGE("ADD_CHAR_EVT, status %d, attr_handle %d, service_handle %d\n",
         param->add_char.status, param->add_char.attr_handle, param->add_char.service_handle);
-    g_profile_tab[PROFILE_A_APP_ID].char_handle = param->add_char.attr_handle;
-    g_profile_tab[PROFILE_A_APP_ID].descr_uuid.len = 0x02;
-    g_profile_tab[PROFILE_A_APP_ID].descr_uuid.uuid.uuid16 = OHOS_GATT_UUID_CHAR_CLIENT_CONFIG;
+    g_profileTab[PROFILE_A_APP_ID].char_handle = param->add_char.attr_handle;
+    g_profileTab[PROFILE_A_APP_ID].descr_uuid.len = 0x02;
+    g_profileTab[PROFILE_A_APP_ID].descr_uuid.uuid.uuid16 = OHOS_GATT_UUID_CHAR_CLIENT_CONFIG;
     BtError get_attr_ret = BleGattsGetAttrValue(param->add_char.attr_handle, &length, &prf_char);
     if (get_attr_ret == BT_ERROR) {
         BT_LOGE("ILLEGAL HANDLE");
@@ -169,8 +169,8 @@ static void gatts_add_char_event(GattInterfaceType gatts_if, BleGattsParam* para
     for (int i = 0; i < length; i++) {
         BT_LOGE("prf_char[%x] =%x\n", i, prf_char[i]);
     }
-    BtError add_descr_ret = BleGattsAddCharDescr(g_profile_tab[PROFILE_A_APP_ID].service_handle,
-        &g_profile_tab[PROFILE_A_APP_ID].descr_uuid,
+    BtError add_descr_ret = BleGattsAddCharDescr(g_profileTab[PROFILE_A_APP_ID].service_handle,
+        &g_profileTab[PROFILE_A_APP_ID].descr_uuid,
         OHOS_GATT_PERMISSION_READ | OHOS_GATT_PERMISSION_WRITE, NULL, NULL);
     if (add_descr_ret) {
         BT_LOGE("add char descr failed, error code =%x", add_descr_ret);
@@ -204,7 +204,7 @@ static void gatts_profile_a_event_handler(GattsBleCallbackEvent event,
             gatts_add_char_event(gatts_if, param);
             break;
         case OHOS_GATTS_ADD_CHAR_DESCR_EVT:
-            g_profile_tab[PROFILE_A_APP_ID].descr_handle = param->add_char_descr.attr_handle;
+            g_profileTab[PROFILE_A_APP_ID].descr_handle = param->add_char_descr.attr_handle;
             BT_LOGE("ADD_DESCR_EVT, status %d, attr_handle %d, service_handle %d\n",
                 param->add_char_descr.status, param->add_char_descr.attr_handle, param->add_char_descr.service_handle);
             break;
@@ -232,7 +232,7 @@ static void gatts_event_handler(GattsBleCallbackEvent event, GattInterfaceType g
     /* If event is register event, store the gatts_if for each profile */
     if (event == OHOS_GATTS_REG_EVT) {
         if (param->reg.status == OHOS_GATT_SUCCESS) {
-            g_profile_tab[param->reg.app_id].gatts_if = gatts_if;
+            g_profileTab[param->reg.app_id].gatts_if = gatts_if;
         } else {
             BT_LOGE("Reg app failed, app_id %04x, status %d\n",
                 param->reg.app_id,
@@ -245,9 +245,9 @@ static void gatts_event_handler(GattsBleCallbackEvent event, GattInterfaceType g
      * so here call each profile's callback */
     int idx;
     for (idx = 0; idx < PROFILE_NUM; idx++) {
-        if (gatts_if == OHOS_GATT_IF_NONE || gatts_if == g_profile_tab[idx].gatts_if) {
-            if (g_profile_tab[idx].gatts_cb) {
-                g_profile_tab[idx].gatts_cb(event, gatts_if, param);
+        if (gatts_if == OHOS_GATT_IF_NONE || gatts_if == g_profileTab[idx].gatts_if) {
+            if (g_profileTab[idx].gatts_cb) {
+                g_profileTab[idx].gatts_cb(event, gatts_if, param);
             }
         }
     }
