@@ -47,4 +47,5 @@ config NIOBEU4_APPLICATION_NAME
     default "107_hdf_spi" if NIOBEU4_APPLICATION_107
     default "201_bluetooth" if NIOBEU4_APPLICATION_201
     default "202_wifi" if NIOBEU4_APPLICATION_202
+    default "601_bluetooth_heart_rate" if NIOBEU4_APPLICATION_601
     default "602_bluetooth_battery" if NIOBEU4_APPLICATION_602
